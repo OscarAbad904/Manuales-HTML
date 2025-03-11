@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual Completo de PyQt6</title>
+  <style>
+        /* Estilos CSS para diseño oscuro y elegante */
+        body {
+            background-color: #1e1e1e;  /* Fondo oscuro */
+            color: #e0e0e0;             /* Texto en gris claro para no cansar la vista */
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Estilos para encabezados */
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffa500;  /* Un tono naranja para los encabezados, destacando en el fondo oscuro */
+            margin-top: 1em;
+        }
+
+        /* Distintos tamaños y decoraciones para jerarquía de encabezados */
+        h1 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 0.5em;
+            border-bottom: 2px solid #444;
+            padding-bottom: 0.3em;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 2em;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.2em;
+        }
+        h3 {
+            font-size: 1.4em;
+            margin-top: 1.5em;
+            color: #ffd280;  /* un naranja más claro para sub-encabezados */
+        }
+
+        /* Párrafos y texto */
+        p {
+            margin: 0.8em 0;
+        }
+
+        /* Listas */
+        ul, ol {
+            margin: 0.8em 0 0.8em 1.2em;
+        }
+        ul li {
+            margin: 0.4em 0;
+        }
+        ul li ul {
+            margin: 0.5em 0 0.5em 1.2em;
+        }
+        ul li ul li {
+            list-style-type: circle;
+        }
+
+        /* Citas en bloque (si las hubiera) */
+        blockquote {
+            border-left: 4px solid #555;
+            margin: 1em 0;
+            padding: 0.5em 1em;
+            color: #ccc;
+            font-style: italic;
+            background-color: #2a2a2a;
+        }
+
+        /* Código embebido en el texto */
+        code {
+            background-color: #333;
+            color: #e0e0e0;
+            font-family: Consolas, Courier New, monospace;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        /* Bloques de código preformateado */
+        pre {
+            background-color: #272727;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+        pre code {
+            color: #e0e0e0;
+            background: none;
+            font-family: Consolas, Courier New, monospace;
+            font-size: 0.95em;
+        }
+
+        /* Estilos para comentarios dentro del código (simple enfoque, asumiendo comentarios empiezan con #) */
+        /* No podemos seleccionar comentarios directamente con CSS, pero podemos optar por estilizar líneas que contengan '#' de forma específica con JavaScript o una librería de resaltado.
+        En este CSS básico, simplemente pondremos los comentarios manualmente en un color diferente dentro del código si fuera posible. (Esta parte es informativa; para un resaltado real se usaría un plugin o <span class="comment"> en HTML). */
+
+        /* Tablas (si se incluyen en contenido) */
+        table {
+            border-collapse: collapse;
+            margin: 1em 0;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid #555;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+        }
+
+        /* Imágenes */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        figure {
+            text-align: center;
+            margin: 1.5em 0;
+        }
+        figcaption {
+            color: #ccc;
+            font-size: 0.9em;
+            margin-top: 0.5em;
+        }
+
+        /* Enlaces */
+        a {
+            color: #86cafc;
+        }
+        a:hover {
+            color: #ffd280;
+        }
+
+        /* Footer o nota (si fuese necesario) */
+        footer {
+            text-align: center;
+            margin: 2em 0 1em;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        /* Estilos para elementos de código */
+        .funcion {
+            color: #4e98e2;  /* azul */
+            font-family: Consolas, Courier New, monospace;
+        }
+
+        .objeto {
+            color: #4caf50;  /* verde */
+            font-family: Consolas, Courier New, monospace;
+        }
+
+        .propiedad {
+            color: #ff9800;  /* naranja */
+            font-family: Consolas, Courier New, monospace;
+        }
+
+        .variable {
+            color: #9c27b0;  /* morado */
+            font-family: Consolas, Courier New, monospace;
+        }
+
+        /* Modificar los estilos de código para incluir colores sintácticos */
+        pre code {
+            color: #e0e0e0;
+            background: none;
+            font-family: Consolas, Courier New, monospace;
+            font-size: 0.95em;
+        }
+
+        pre code .funcion {
+            color: #3df364;  /* azul */
+        }
+
+        pre code .objeto {
+            color: #ff39b3;  /* verde */
+        }
+
+        pre code .propiedad {
+            color: #ff9800;  /* naranja */
+        }
+
+        pre code .variable {
+            color: #4cecdf;  /* morado */
+        }
+
+        /* Estilo para inline code con colores */
+        code.funcion, code.objeto, code.propiedad, code.variable {
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+<style>
+.funcion { color: #3df364; font-weight: bold; }
+.variable { color: #4cecdf; }
+.propiedad { color: #ff9800; }
+.objeto { color: #ff39b3; }
+    /* Estilos para el índice interactivo */
+    .indice, .subindice {
+      background-color: #1e1e1e;
+      border: 1px solid #444;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    .indice ul, .subindice ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .indice li, .subindice li {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Manual Completo de PyQt6</h1>
+<p><strong>Manual orientado a principiantes para crear interfaces gráficas de usuario (GUI) con Python y PyQt6.</strong> Este manual guía paso a paso en el uso de PyQt6, explicando objetos, métodos y propiedades con ejemplos sencillos y código comentado. También cubre la creación de interfaces con Qt Designer y su integración en proyectos PyQt6. El lenguaje es claro y asequible, pensado para quienes están iniciando en la programación.</p>
+
+<h2>Índice General</h2>
+<ul>
+  <li><a href="#cap1">1. Introducción a PyQt6</a>
+    <ul>
+        <li><a href="#cap1_1">1.1 ¿Qué es PyQt6?</a></li>
+        <li><a href="#cap1_2">1.2 Instalación de PyQt6 y Qt Designer</a></li>
+    </ul>
+  </li>
+  <li><a href="#cap2">2. Estructura de una aplicación PyQt6</a>
+    <ul>
+        <li><a href="#cap2_1">2.1 Ciclo de vida de una aplicación GUI</a></li>
+        <li><a href="#cap2_2">2.2 Tu primer programa "Hola Mundo"</a></li>
+    </ul>
+  </li>
+  <li><a href="#cap3">3. Widgets básicos (Controles de interfaz)</a>
+    <ul>
+        <li><a href="#cap3_1">3.1 QLabel (Etiqueta)</a></li>
+        <li><a href="#cap3_2">3.2 QPushButton (Botón)</a></li>
+        <li><a href="#cap3_3">3.3 QLineEdit (Campo de texto de una línea)</a></li>
+        <li><a href="#cap3_4">3.4 QTextEdit (Área de texto multilínea)</a></li>
+        <li><a href="#cap3_5">3.5 QCheckBox (Casilla de verificación) y QRadioButton (Botón de opción)</a></li>
+        <li><a href="#cap3_6">3.6 QComboBox (Caja combinada) y QListWidget (Lista)</a></li>
+    </ul>
+  </li>
+  <li><a href="#cap4">4. Diseño de interfaces gráficas (Layouts)</a>
+    <ul>
+        <li><a href="#cap4_1">4.1 Concepto de layout (disposición)</a></li>
+        <li><a href="#cap4_2">4.2 Layouts verticales, horizontales y de cuadrícula</a></li>
+        <li><a href="#cap4_3">4.3 Ejemplos de organización de widgets</a></li>
+    </ul>
+  </li>
+  <li><a href="#cap5">5. Manejo de eventos: señales y slots</a>
+    <ul>
+        <li><a href="#cap5_1">5.1 ¿Qué son señales y slots?</a></li>
+        <li><a href="#cap5_2">5.2 Conectar eventos de widgets a funciones (slots)</a></li>
+        <li><a href="#cap5_3">5.3 Ejemplos prácticos de manejo de eventos</a></li>
+    </ul>
+  </li>
+  <li><a href="#cap6">6. Controles avanzados</a>
+    <ul>
+        <li><a href="#cap6_1">6.1 QTableWidget (Tabla)</a></li>
+        <li><a href="#cap6_2">6.2 QTabWidget (Pestañas)</a></li>
+        <li><a href="#cap6_3">6.3 Otros controles (menores menciones: QTreeWidget, QSlider, QSpinBox)</a></li>
+    </ul>
+  </li>
+  <li><a href="#cap7">7. Menús, barras de herramientas y diálogos</a>
+    <ul>
+        <li><a href="#cap7_1">7.1 Menú de aplicación y barras de herramientas</a></li>
+        <li><a href="#cap7_2">7.2 Diálogos comunes (QMessageBox, QFileDialog)</a></li>
+    </ul>
+  </li>
+  <li><a href="#cap8">8. Archivos .ui y Qt Designer</a>
+    <ul>
+        <li><a href="#cap8_1">8.1 ¿Qué es Qt Designer?</a></li>
+        <li><a href="#cap8_2">8.2 Diseñar interfaces gráficas con Qt Designer</a></li>
+        <li><a href="#cap8_3">8.3 Cargar diseños .ui en PyQt6 (uic.loadUi)</a></li>
+        <li><a href="#cap8_4">8.4 Convertir diseños .ui a código Python (pyuic6)</a></li>
+    </ul>
+  </li>
+  <li><a href="#cap9">9. Conclusión y pasos siguientes</a></li>
+</ul>
+
+<!-- CAPÍTULO 1 -->
+<h2 id="cap1">1. Introducción a PyQt6</h2>
+<p><strong>¿Qué es PyQt6?</strong> PyQt6 es un conjunto de <em>bindings</em> (enlaces) de Python para la biblioteca Qt6, que es un <strong>framework</strong> ampliamente utilizado para desarrollar interfaces gráficas de usuario (GUI) multiplataforma. En otras palabras, PyQt6 permite crear aplicaciones de escritorio con Python utilizando los componentes y herramientas provistos por Qt.</p>
+
+<h3 id="cap1_1">1.1 ¿Qué es PyQt6?</h3>
+
+<p>PyQt6 es un conjunto de **enlaces (bindings)** que permiten usar la biblioteca **Qt6** (escrita en C++) desde el lenguaje Python. Qt es un **framework** muy popular para desarrollar aplicaciones gráficas de escritorio en múltiples plataformas (Windows, macOS, Linux). Con PyQt6 podemos crear **interfaces gráficas de usuario (GUI)** en Python utilizando todos los componentes visuales que ofrece Qt, como ventanas, botones, campos de texto, diálogos, etc., con una apariencia nativa y profesional en cada sistema operativo.</p>
+
+<p>En otras palabras, PyQt6 actúa como un puente entre Python y Qt: cuando creamos un botón o una ventana en PyQt6, internamente se está utilizando un objeto Qt real. Esto nos permite construir aplicaciones de escritorio completas usando solo código Python, aprovechando la potencia y madurez de Qt.</p>
+
+<p><strong>Nota sobre versiones:</strong> PyQt6 es la versión de PyQt basada en Qt 6 (lanzada en 2021). Existe también PyQt5 (basada en Qt 5) que es muy similar en funcionalidad, diferenciándose principalmente en detalles de importación y algunas constantes. Otra alternativa oficial es **PySide6** (también llamada Qt for Python), que es otro binding de Qt6 para Python mantenido por The Qt Company. Para un principiante, PyQt6 o PySide6 son prácticamente equivalentes en el día a día.</p>
+
+<h3 id="cap1_2">1.2 Instalación de PyQt6 y Qt Designer</h3>
+
+<p>Para empezar a usar PyQt6, primero debemos instalarlo. La forma más sencilla es a través de **pip**, el gestor de paquetes de Python. Asegúrate de tener **Python 3.9 o superior** (PyQt6 requiere al menos Python 3.9). Luego, en una terminal o símbolo del sistema, ejecuta:</p>
+<pre><code>pip install PyQt6</code></pre>
+<p>Este comando descargará e instalará PyQt6 desde el índice de paquetes de Python (PyPI). Es recomendable hacerlo dentro de un **entorno virtual** (usando <code>venv</code> por ejemplo), para evitar conflictos de dependencias con otros proyectos.</p>
+
+<p>Una vez instalada la librería, puedes verificar que todo funciona abriendo una consola interactiva de Python e intentando importar PyQt6:</p>
+<pre><code>>>> from PyQt6 import QtWidgets
+>>> print("PyQt6 instalado correctamente!")
+PyQt6 instalado correctamente!</code></pre>
+
+<p>Si no ves errores al importar, ¡ya tienes PyQt6 listo para usar! En la siguiente sección crearemos nuestra primera aplicación básica para confirmar.</p>
+
+<p><strong>Qt Designer:</strong> Qt Designer es una herramienta visual que permite diseñar interfaces gráficas mediante arrastrar y soltar widgets (botones, campos, etc.) sin escribir código. Viene incluida con las herramientas de Qt. Para usar Qt Designer con PyQt6, podemos instalar el paquete complementario <code>pyqt6-tools</code>:</p>
+<pre><code>pip install pyqt6-tools</code></pre>
+
+<p>Este paquete instala Qt Designer y otras utilidades. En Windows, por ejemplo, Qt Designer quedará disponible en la ruta de los paquetes (`.../Lib/site-packages/qt6_applications/Qt/bin/designer.exe`). Puedes ejecutar Qt Designer desde esa ruta o añadiéndola a tu PATH. Otra forma fácil de lanzarlo es, tras instalar <code>pyqt6-tools</code>, ejecutar en la terminal:</p>
+<pre><code>pyqt6-tools designer</code></pre>
+
+<p>Esto abrirá la interfaz de Qt Designer. En macOS o Linux, podría ser necesario buscar el ejecutable <code>designer</code> dentro del entorno virtual. Si tuvieras dificultades, también puedes instalar Qt Designer descargando Qt (completo) desde la página oficial, pero <code>pyqt6-tools</code> es la vía sencilla.</p>
+
+<p>Más adelante, en el capítulo 8, veremos cómo utilizar Qt Designer para crear interfaces y cargarlas en nuestras aplicaciones PyQt6.</p>
+
+<!-- CAPÍTULO 2 -->
+<h2 id="cap2">2. Estructura de una aplicación PyQt6</h2>
+
+<h3 id="cap2_1">2.1 Ciclo de vida de una aplicación GUI</h3>
+<p>Antes de sumergirnos en los distintos widgets y características, es importante entender **cómo se estructura una aplicación PyQt6** y cuál es su ciclo de vida básico. En términos generales, todas las aplicaciones gráficas de Qt (y por tanto de PyQt) siguen estos pasos fundamentales:</p>
+
+<ul>
+    <li>**Inicialización de la aplicación:** crear una instancia de la aplicación Qt. En PyQt6 se suele usar <code><code class="objeto">QApplication</code></code> (o <code><code class="objeto">QGuiApplication</code></code> si no se usan widgets pero, en la práctica, casi siempre usaremos <code><code class="objeto">QApplication</code></code>). Este objeto representa la aplicación en sí, gestionando recursos y el **bucle de eventos** principal.</li>
+    <li>**Creación de la ventana principal:** instanciar la ventana o widget principal de la aplicación. Esto puede ser un objeto <code><code class="objeto">QWidget</code></code> simple, una ventana principal más compleja derivada de <code><code class="objeto">QMainWindow</code></code>, o incluso un diálogo (<code><code class="objeto">QDialog</code></code>). En esta ventana principal colocaremos el resto de componentes (botones, etiquetas, etc.).</li>
+    <li>**Configuración de widgets:** crear y configurar los widgets de la interfaz (por ejemplo, botones, etiquetas, campos de texto) y establecer su **diseño (layout)** dentro de la ventana principal, es decir, cómo se organizan y distribuyen en pantalla.</li>
+    <li>**Conexión de señales y slots:** conectar los eventos (señales) de los widgets a funciones o métodos (slots) que definamos, de forma que la interacción del usuario dispare la lógica correspondiente. Por ejemplo, conectar el clic de un botón a una función que realiza cierta acción.</li>
+    <li>**Mostrar la interfaz:** hacer visible la ventana principal llamando a su método <code><code class="propiedad">show</code>()</code>. Hasta este punto, la ventana existe en memoria pero no se muestra en pantalla.</li>
+    <li>**Ejecutar el bucle de eventos:** iniciar el **loop de eventos** de Qt llamando a <code>app.<code class="propiedad">exec</code>()</code>. A partir de aquí, la aplicación entra en modo espera activa de eventos (clics, teclas, repintados, etc.) y responderá según lo programado, hasta que se cierre.</li>
+    <li>**Salida de la aplicación:** cuando la ventana principal se cierra (p. ej. el usuario hace clic en la X de la ventana), <code>app.<code class="propiedad">exec</code>()</code> termina y el programa puede finalizar realizando limpieza si es necesaria.</li>
+</ul>
+
+<h3 id="cap2_2">2.2 Tu primer programa "Hola Mundo"</h3>
+
+<p>Veamos un ejemplo mínimo de una aplicación PyQt6 que sigue estas etapas. Este será nuestro programa "Hola Mundo" en PyQt6:</p>
+
+<pre><code class="language-python">import sys
+from PyQt6.QtWidgets import QApplication, QLabel
+
+app = QApplication(sys.<code class="variable">argv</code>)        # 1. Inicializar la aplicación Qt
+label = QLabel("¡Hola, mundo de PyQt6!")  # 2. Crear un widget (<code class="objeto">QLabel</code> con texto)
+label.<code class="propiedad">setWindowTitle</code>("Primer programa")   # Opcional: poner título a la ventana
+label.<code class="propiedad">resize</code>(300, 100)              # Opcional: ajustar tamaño de la ventana
+label.<code class="propiedad">show</code>()                       # 3. Mostrar la ventana (el <code class="objeto">QLabel</code> actúa como ventana principal)
+app.<code class="propiedad">exec</code>()                         # 4. Iniciar el bucle de eventos
+</code></pre>
+
+<p><strong>Explicación:</strong></p>
+
+<ul>
+    <li>Primero importamos <code><code class="objeto">QApplication</code></code> y <code><code class="objeto">QLabel</code></code> del módulo <code>PyQt6.QtWidgets</code>. También importamos <code>sys</code> porque <code><code class="objeto">QApplication</code></code> espera recibir <code>sys.<code class="variable">argv</code></code> (los argumentos de línea de comando) por compatibilidad; esto no suele ser crucial, pero es la forma estándar.</li>
+    <li>Creamos una instancia de <code><code class="objeto">QApplication</code></code> llamada <code>app</code>. Este paso **siempre** es necesario en cualquier programa PyQt6, y debe ocurrir antes de crear cualquier widget. Solo debe haber una instancia de <code><code class="objeto">QApplication</code></code> en la aplicación.</li>
+    <li>Creamos un widget de tipo <code><code class="objeto">QLabel</code></code> con el texto <code>"¡Hola, mundo de PyQt6!"</code>. <code><code class="objeto">QLabel</code></code> es una etiqueta de texto (un control básico para mostrar texto estático). En este ejemplo, no creamos explícitamente una ventana contenedora; como <code>label</code> es un widget sin padre (no le pasamos ningún parent), PyQt lo considerará una ventana independiente.</li>
+    <li>Opcionalmente, usamos <code>label.<code class="propiedad">setWindowTitle</code>("Primer programa")</code> para establecer el título de la ventana que contendrá al <code class="objeto">QLabel</code> (de lo contrario, aparecerá un título por defecto o vacío) y <code>label.<code class="propiedad">resize</code>(300, 100)</code> para darle un tamaño inicial (ancho 300 px, alto 100 px). Esto ayuda a que la ventana no tenga el tamaño mínimo del texto, sino algo más grande.</li>
+    <li>Llamamos a <code>label.<code class="propiedad">show</code>()</code>. Esto **muestra la ventana** en pantalla. Si nos olvidáramos de llamar a <code><code class="propiedad">show</code>()</code>, la aplicación se ejecutaría pero nada sería visible.</li>
+    <li>Finalmente, <code>app.<code class="propiedad">exec</code>()</code> inicia el bucle de eventos de Qt. Este método no retorna hasta que la aplicación se cierra. Mientras tanto, la ventana está interactiva. Cuando cerramos la ventana, <code>app.<code class="propiedad">exec</code>()</code> termina y el script continúa (en este caso acabaría inmediatamente después porque no hay más código, y por tanto finaliza).</li>
+</ul>
+
+<p>Si ejecutas este código, deberías ver una ventana con el texto "¡Hola, mundo de PyQt6!". Para terminar la aplicación, puedes cerrar la ventana manualmente. Alternativamente, podríamos llamar <code>sys.<code class="propiedad">exit</code>(app.<code class="propiedad">exec</code>())</code> para que Python termine completamente al salir el loop (esto es útil si hay que garantizar que se liberen recursos, etc., pero en scripts simples no hace diferencia notable).</p>
+
+<p><strong>Ejercicio 1:</strong> Prueba a modificar el programa "Hola Mundo". Por ejemplo, cambia el texto de la etiqueta a tu propio mensaje, ajusta el tamaño de la ventana o el título. Ejecuta el programa para ver los cambios. Intenta añadir otro <code><code class="objeto">QLabel</code></code> adicional debajo del primero (pista: necesitarás un *layout* o definir un widget contenedor para poner dos etiquetas, algo que veremos en el próximo capítulo). Observa qué sucede si intentas crear un segundo <code><code class="objeto">QApplication</code></code> (por ejemplo, <code>app2 = QApplication(sys.<code class="variable">argv</code>)</code>) – deberías ver un error; ¿por qué crees que ocurre?</p>
+
+<!-- CAPÍTULO 3 -->
+<h2 id="cap3">3. Widgets básicos (Controles de interfaz)</h2>
+<p>Los <strong>widgets</strong> son los componentes visuales básicos de una interfaz: botones, etiquetas, campos de texto, listas, etc. PyQt6 proporciona una amplia colección de widgets a través del módulo <code>PyQt6.QtWidgets</code> (además de otros módulos como <code>QtGui</code> y <code>QtCore</code> para funcionalidades más específicas). En esta sección veremos los widgets más comunes y cómo usarlos: sus propiedades principales, métodos y señales más útiles, siempre con ejemplos simples.</p>
+
+<p>Antes de empezar, es útil saber que en Qt muchos widgets tienen una jerarquía de herencia. Por ejemplo, <code><code class="objeto">QLabel</code></code>, <code><code class="objeto">QPushButton</code></code>, <code><code class="objeto">QLineEdit</code></code>, etc., todos heredan de <code><code class="objeto">QWidget</code></code>, que es la clase base de **cualquier** componente visual. Esto significa que todos comparten ciertos métodos (como <code><code class="propiedad">show</code>()</code>, <code><code class="propiedad">hide</code>()</code>, <code><code class="propiedad">move</code>()</code>, <code><code class="propiedad">resize</code>()</code>, etc.) y propiedades (por ejemplo, todos pueden tener un <code><code class="propiedad">toolTip</code></code>, un texto emergente de ayuda). No necesitaremos usar todas esas propiedades ahora, pero tenlo en cuenta: aprender a usar un widget te dará pistas de cómo usar otros, ya que hay consistencia en la API.</p>
+
+<p>A continuación, exploraremos los widgets básicos:</p>
+
+<h3 id="cap3_1">3.1 QLabel (Etiqueta de texto)</h3>
+
+<p><strong>Descripción:</strong> <code><code class="objeto">QLabel</code></code> muestra texto (o imágenes) en la interfaz. Es útil para mostrar información estática o rótulos para otros campos (por ejemplo, "Nombre:" al lado de un campo de entrada). Por defecto, un <code class="objeto">QLabel</code> muestra texto plano, pero puede mostrar texto con formato HTML básico, e incluso imágenes usando <code><code class="objeto">QPixmap</code></code>. Aquí nos centraremos en texto simple.</p>
+
+<p><strong>Principales propiedades/métodos:</strong></p>
+
+<ul>
+    <li><strong>Texto:</strong> Podemos establecer el texto con <code><code class="propiedad">setText</code>("...")</code> o al crear el <code class="objeto">QLabel</code> pasar el texto en el constructor. Para obtener el texto actual, usamos <code><code class="propiedad">text</code>()</code>.</li>
+    <li><strong>Alineación:</strong> Por defecto el texto está alineado a la izquierda. Podemos cambiar la alineación con <code><code class="propiedad">setAlignment</code>(<code class="objeto">Qt</code>.<code class="propiedad">AlignmentFlag</code>.<code class="propiedad">AlignCenter</code>)</code> u otras constantes de alineación (necesita importar <code><code class="objeto">Qt</code></code> de <code>PyQt6.QtCore</code>).</li>
+    <li><strong>Estilo visual:</strong> Se puede cambiar la fuente (<code><code class="propiedad">setFont</code>()</code>), color (<code><code class="propiedad">setStyleSheet</code>()</code> con CSS, o paleta de colores), etc. Para no extendernos, no cubriremos en detalle estilos en este manual, pero es bueno saber que se puede personalizar ampliamente.</li>
+</ul>
+
+<p><strong>Ejemplo simple:</strong> crearemos una ventana con dos <code class="objeto">QLabel</code>: uno mostrará un texto fijo y otro se actualizará desde el código.</p>
+
+<pre><code class="language-python">import sys
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
+
+class MiVentana(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo QLabel")
+        # Crear widgets <code class="objeto">QLabel</code>
+        self.<code class="variable">label_fijo</code> = QLabel("Texto fijo: Hola QLabel")
+        self.<code class="variable">label_dinamico</code> = QLabel()  # etiqueta vacía inicialmente
+        # Establecer texto dinámicamente
+        self.<code class="variable">label_dinamico</code>.<code class="propiedad">setText</code>("Texto establecido desde código")
+        # Cambiar alineación del segundo label al centro
+        from PyQt6.QtCore import Qt
+        self.<code class="variable">label_dinamico</code>.<code class="propiedad">setAlignment</code>(<code class="objeto">Qt</code>.<code class="propiedad">AlignmentFlag</code>.<code class="propiedad">AlignCenter</code>)
+        # Layout vertical para colocar las etiquetas
+        layout = QVBoxLayout()
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">label_fijo</code>)
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">label_dinamico</code>)
+        self.<code class="propiedad">setLayout</code>(layout)
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = MiVentana()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p><strong>Qué hace este código:</strong> Definimos una clase <code>MiVentana</code> que hereda de <code><code class="objeto">QWidget</code></code> (una ventana genérica). En su constructor, creamos dos <code class="objeto">QLabel</code>, uno con texto dado en el constructor y otro sin texto (cadena vacía). Luego usamos <code><code class="propiedad">setText</code></code> para asignar texto al segundo. También alineamos el segundo al centro horizontalmente. Creamos un <code><code class="objeto">QVBoxLayout</code></code> (layout vertical) y añadimos los dos labels, luego aplicamos ese layout a la ventana (<code>self.<code class="propiedad">setLayout</code>(layout)</code>). Finalmente, creamos la aplicación y una instancia de <code>MiVentana</code>, la mostramos y ejecutamos el loop.</p>
+
+<p>Al ejecutar, verás una ventana con dos líneas de texto: "Texto fijo: Hola QLabel" y debajo centrado "Texto establecido desde código".</p>
+
+<p><strong>Señales relevantes:</strong> <code class="objeto">QLabel</code> no emite señales al ser un elemento pasivo (no interactivo), pero puede ser sensible a eventos de mouse si se habilita <code><code class="propiedad">setTextInteractionFlags</code></code> o si se usa para mostrar enlaces HTML (entonces tiene señal <code><code class="propiedad">linkActivated</code></code>). En este manual nos centraremos en widgets interactivos para señales.</p>
+
+<h3 id="cap3_2">3.2 QPushButton (Botón)</h3>
+
+<p><strong>Descripción:</strong> <code><code class="objeto">QPushButton</code></code> es el típico botón que el usuario puede clicar para iniciar una acción. Es uno de los widgets más usados. Un botón muestra un texto (y opcionalmente un icono) y reacciona al clic. En PyQt6, cuando un botón se pulsa, emite la señal <code><code class="propiedad">clicked</code></code>. Podemos conectar esa señal a una función para realizar algo cuando ocurra el clic.</p>
+
+<p><strong>Principales propiedades/métodos:</strong></p>
+
+<ul>
+    <li><strong>Texto del botón:</strong> se define en el constructor o con <code><code class="propiedad">setText</code>("...")</code>. Obtener con <code><code class="propiedad">text</code>()</code>.</li>
+    <li><strong>Icono:</strong> se puede establecer un icono con <code><code class="propiedad">setIcon</code>(<code class="objeto">QIcon</code>("ruta_a_imagen.png"))</code> (requiere importar <code><code class="objeto">QIcon</code></code> de <code>PyQt6.QtGui</code>).</li>
+    <li><strong>Habilitado/Deshabilitado:</strong> cualquier widget tiene <code><code class="propiedad">setEnabled</code>(True/False)</code> para permitir o no interacción. Un botón deshabilitado aparece atenuado y no se puede clicar.</li>
+    <li><strong>Auto-repeat:</strong> botones pueden repetir la señal si se mantienen pulsados (<code><code class="propiedad">setAutoRepeat</code>(True)</code>) – útil para flechas de scroll, etc.</li>
+</ul>
+
+<p>Lo más importante es la **señal <code><code class="propiedad">clicked</code></code>**, que usaremos para detectar el clic.</p>
+
+<p><strong>Ejemplo:</strong> ventana con un <code class="objeto">QLabel</code> y un <code class="objeto">QPushButton</code>. Al pulsar el botón, cambiaremos el texto del <code class="objeto">QLabel</code>.</p>
+
+<pre><code class="language-python">import sys
+from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout
+
+class VentanaBoton(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo QPushButton")
+        # Crear un <code class="objeto">QLabel</code> y un <code class="objeto">QPushButton</code>
+        self.<code class="variable">label</code> = QLabel("Pulsa el botón para saludar")
+        self.<code class="variable">boton</code> = QPushButton("Saludar")
+        # Conectar la señal clicked del botón a un método
+        self.<code class="variable">boton</code>.<code class="propiedad">clicked</code>.<code class="propiedad">connect</code>(self.<code class="funcion">saludar</code>)
+        # Layout vertical con el botón debajo del texto
+        layout = QVBoxLayout()
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">label</code>)
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">boton</code>)
+        self.<code class="propiedad">setLayout</code>(layout)
+
+    def <span class="funcion">saludar</span>(self):
+        # Método que se llamará al hacer clic en el botón
+        self.<code class="variable">label</code>.<code class="propiedad">setText</code>("¡Hola! Has pulsado el botón.")
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaBoton()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p><strong>Explicación:</strong> Creamos la ventana con un mensaje inicial en <code>self.<code class="variable">label</code></code> y un botón <code>self.<code class="variable">boton</code></code> con la etiqueta "Saludar". Usamos <code>self.<code class="variable">boton</code>.<code class="propiedad">clicked</code>.<code class="propiedad">connect</code>(self.<code class="funcion">saludar</code>)</code> para que al pulsar el botón se ejecute el método <code><code class="funcion">saludar</code>()</code>. En ese método, cambiamos el texto de <code>self.<code class="variable">label</code></code>. Cuando ejecutes el programa, verás que inicialmente la etiqueta dice "Pulsa el botón para saludar". Al hacer clic en el botón, el texto cambia a "¡Hola! Has pulsado el botón.".</p>
+
+<p>Ten en cuenta que usamos <code><code class="objeto">QWidget</code></code> como ventana contenedora en estos ejemplos simples. Más adelante veremos que para aplicaciones más grandes podríamos usar <code><code class="objeto">QMainWindow</code></code> que ofrece más funcionalidades (menú, barra de estado, etc.), pero para ejemplos de widgets, un <code><code class="objeto">QWidget</code></code> básico nos sirve.</p>
+
+<p><strong>Ejercicio 2:</strong> Modifica el ejemplo del botón para que cada vez que lo pulses, la etiqueta muestre un contador de cuántas veces se pulsó. (Pista: puedes almacenar un contador en <code>self</code>, inicializarlo a 0, incrementarlo en cada llamada a <code><code class="funcion">saludar</code></code> y mostrar el valor). Intenta también añadir un segundo botón, por ejemplo "Reiniciar contador", que ponga el contador a 0 y actualice la etiqueta.</p>
+
+<h3 id="cap3_3">3.3 QLineEdit (Campo de texto de una línea)</h3>
+
+<p><strong>Descripción:</strong> <code><code class="objeto">QLineEdit</code></code> es un campo de texto de una sola línea, típicamente usado para entradas cortas (como nombre, dirección, buscar, etc.). Permite al usuario escribir y editar texto en él. Soporta funcionalidades como enmascarar texto (para contraseñas), validación, etc., pero aquí veremos su uso básico.</p>
+
+<p><strong>Principales propiedades/métodos:</strong></p>
+
+<ul>
+    <li><strong>Texto actual:</strong> se obtiene con <code><code class="propiedad">text</code>()</code> y se establece con <code><code class="propiedad">setText</code>("...")</code>. También <code><code class="propiedad">clear</code>()</code> para vaciar.</li>
+    <li><strong>Placeholder (texto de sugerencia):</strong> un texto tenue que aparece cuando el campo está vacío, útil como instrucción. Se configura con <code><code class="propiedad">setPlaceholderText</code>("Ingrese su nombre...")</code>.</li>
+    <li><strong>Lectura sólo:</strong> con <code><code class="propiedad">setReadOnly</code>(True)</code> puedes hacer que no sea editable (solo visible).</li>
+    <li><strong>Máscaras y validaciones:</strong> con <code><code class="propiedad">setEchoMode</code></code> puedes enmascarar (por ejemplo para contraseñas: <code><code class="propiedad">setEchoMode</code>(<code class="objeto">QLineEdit</code>.<code class="propiedad">EchoMode</code>.<code class="propiedad">Password</code>)</code>), y con <code><code class="propiedad">setValidator</code></code> asignar un validador (por ejemplo, solo números). Estos son temas avanzados que podemos omitir por ahora.</li>
+</ul>
+
+<p><strong>Señales útiles:</strong></p>
+
+<ul>
+    <li><code><code class="propiedad">textChanged</code>(str)</code>: se emite cada vez que el texto cambia (cada tecla).</li>
+    <li><code><code class="propiedad">returnPressed</code></code>: se emite cuando el usuario presiona Enter/Return dentro del campo, indicando que terminó la entrada.</li>
+    <li><code><code class="propiedad">textEdited</code>(str)</code>: similar a <code><code class="propiedad">textChanged</code></code> pero solo por interacción del usuario (no por <code class="propiedad">setText</code> programático).</li>
+</ul>
+
+<p><strong>Ejemplo:</strong> Ventana con un <code class="objeto">QLineEdit</code> y un <code class="objeto">QLabel</code>. Cuando el usuario escriba en el campo y presione Enter, mostraremos lo escrito en la etiqueta. Si el campo está vacío y se presiona Enter, la etiqueta mostrará un mensaje por defecto.</p>
+
+<pre><code class="language-python">import sys
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QVBoxLayout
+
+class VentanaTexto(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo QLineEdit")
+        # Crear <code class="objeto">QLabel</code> y <code class="objeto">QLineEdit</code>
+        self.<code class="variable">label</code> = QLabel("Escribe algo y presiona Enter:")
+        self.<code class="variable">campo</code> = QLineEdit()
+        self.<code class="variable">campo</code>.<code class="propiedad">setPlaceholderText</code>("Escribe aquí...")  # texto guía
+        # Conectar la señal returnPressed del campo de texto a un método
+        self.<code class="variable">campo</code>.<code class="propiedad">returnPressed</code>.<code class="propiedad">connect</code>(self.<code class="funcion">mostrar_texto</code>)
+        # Layout vertical
+        layout = QVBoxLayout()
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">label</code>)
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">campo</code>)
+        self.<code class="propiedad">setLayout</code>(layout)
+
+    def <span class="funcion">mostrar_texto</span>(self):
+        texto = self.<code class="variable">campo</code>.<code class="propiedad">text</code>()
+        if texto:
+            self.<code class="variable">label</code>.<code class="propiedad">setText</code>(f"Escribiste: {texto}")
+        else:
+            self.<code class="variable">label</code>.<code class="propiedad">setText</code>("No escribiste nada")
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaTexto()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p><strong>Qué sucede aquí:</strong> La interfaz tiene una etiqueta instructiva inicial y debajo un campo de texto vacío con un placeholder ("Escribe aquí..."). El usuario puede escribir en el <code class="objeto">QLineEdit</code>. Al pulsar Enter dentro del <code class="objeto">QLineEdit</code>, se llama al método <code><code class="funcion">mostrar_texto</code>()</code>. En ese método obtenemos el texto con <code>self.<code class="variable">campo</code>.<code class="propiedad">text</code>()</code>. Si la cadena no está vacía, ponemos ese texto en la etiqueta con <code><code class="propiedad">setText</code></code>; si está vacía, ponemos "No escribiste nada". Así, la etiqueta refleja lo último que el usuario ingresó. Nótese que podríamos también conectar <code><code class="propiedad">textChanged</code></code> para que la etiqueta se actualice en tiempo real conforme escriben, pero usando <code><code class="propiedad">returnPressed</code></code> esperamos a que terminen de escribir y pulsen Enter.</p>
+
+<p><strong>Ejercicio 3:</strong> Modifica el ejemplo anterior para usar la señal <code><code class="propiedad">textChanged</code></code> en lugar de <code><code class="propiedad">returnPressed</code></code>, de forma que la etiqueta muestre al instante lo que el usuario escribe (pista: conecta <code>self.<code class="variable">campo</code>.<code class="propiedad">textChanged</code>.<code class="propiedad">connect</code>(self.<code class="funcion">mi_funcion</code>)</code> donde <code><code class="funcion">mi_funcion</code></code> acepta un parámetro, por ejemplo <code>def <span class="funcion">mi_funcion</span>(self, <span class="variable">texto</span>): ...</code> y ahí utilizas el <code><code class="variable">texto</code></code> recibido). Observa cómo la señal <code><code class="propiedad">textChanged</code></code> proporciona directamente el texto nuevo como parámetro.</p>
+
+<h3 id="cap3_4">3.4 QTextEdit (Área de texto multilínea)</h3>
+
+<p><strong>Descripción:</strong> <code><code class="objeto">QTextEdit</code></code> es similar a <code class="objeto">QLineEdit</code> pero permite texto de múltiples líneas, con saltos de línea, formato básico, etc. Es útil para campos de texto largos (comentarios, descripciones) o para implementar editores de texto simples. <code class="objeto">QTextEdit</code> por defecto es un editor *rich text* (permite formato HTML), pero también se puede usar en modo texto plano.</p>
+
+<p><strong>Principales propiedades/métodos:</strong></p>
+
+<ul>
+    <li><strong>Texto:</strong> <code><code class="propiedad">toPlainText</code>()</code> obtiene el texto (sin formato) y <code><code class="propiedad">setText</code>()</code> asigna texto. Si necesitas formato HTML, <code><code class="propiedad">toHtml</code>()</code> y <code><code class="propiedad">setHtml</code>()</code> son las contrapartes.</li>
+    <li><strong>Append:</strong> <code><code class="propiedad">append</code>("texto")</code> permite añadir texto al final, útil para logs o chats.</li>
+    <li><strong>Read-only:</strong> <code><code class="propiedad">setReadOnly</code>(True)</code> para usarlo solo como visor.</li>
+    <li><strong>Placeholder:</strong> <code><code class="propiedad">setPlaceholderText</code></code> también funciona para indicar un texto de sugerencia inicial.</li>
+    <li><strong>Scroll automático:</strong> por defecto tiene barras de desplazamiento cuando el contenido excede el tamaño.</li>
+</ul>
+
+<p><strong>Señales:</strong> similares a <code class="objeto">QLineEdit</code>, tiene <code><code class="propiedad">textChanged</code></code> (sin argumento) que indica que el contenido cambió. Al ser multi-línea, no tiene <code><code class="propiedad">returnPressed</code></code> (ya que Enter simplemente inserta nueva línea en vez de confirmar entrada). Podrías usar <code><code class="propiedad">cursorPositionChanged</code></code> o otras según la necesidad.</p>
+
+<p><strong>Ejemplo:</strong> Podríamos reutilizar mucho del ejemplo de <code class="objeto">QLineEdit</code>, pero mostrando en un <code class="objeto">QTextEdit</code> un texto compuesto. Sin embargo, para variar, haremos un ejemplo donde <code class="objeto">QTextEdit</code> es usado para mostrar texto de salida. Por ejemplo, un área donde se muestran logs de acciones.</p>
+
+<pre><code class="language-python">import sys
+from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QTextEdit, QVBoxLayout
+
+class VentanaAreaTexto(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo QTextEdit")
+        self.<code class="variable">log_area</code> = QTextEdit()
+        self.<code class="variable">log_area</code>.<code class="propiedad">setReadOnly</code>(True)  # Área de texto solo lectura para logs
+        self.<code class="variable">log_area</code>.<code class="propiedad">setPlaceholderText</code>("Logs de eventos aparecerán aquí...")
+        self.<code class="variable">boton_accion</code> = QPushButton("Realizar Acción")
+        self.<code class="variable">boton_accion</code>.<code class="propiedad">clicked</code>.<code class="propiedad">connect</code>(self.<code class="funcion">realizar_accion</code>)
+        # Layout
+        layout = QVBoxLayout()
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">log_area</code>)
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">boton_accion</code>)
+        self.<code class="propiedad">setLayout</code>(layout)
+
+    def <span class="funcion">realizar_accion</span>(self):
+        # Simula realizar algo y registra en el log
+        self.<code class="variable">log_area</code>.<code class="propiedad">append</code>("Acción realizada!")
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaAreaTexto()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p><strong>Explicación:</strong> Tenemos un <code class="objeto">QTextEdit</code> llamado <code><code class="variable">log_area</code></code> que está en modo solo lectura y se usará para mostrar mensajes de log. Debajo, un botón que cuando se pulsa, ejecuta <code><code class="funcion">realizar_accion</code></code>, que simplemente añade una línea de texto "Acción realizada!" al <code class="objeto">QTextEdit</code> usando <code><code class="propiedad">append</code></code>. Cada vez que pulses el botón, verás que aparece una nueva línea de texto en el área, sin borrar las anteriores (porque usamos append). Si el texto excede el tamaño, automáticamente aparecerá scroll. También establecimos un placeholder para que, antes de cualquier acción, se vea una indicación tenue en el cuadro de texto.</p>
+
+<p><strong>Ejercicio 4:</strong> Combina lo aprendido de <code class="objeto">QLineEdit</code> y <code class="objeto">QTextEdit</code>: crea una interfaz con un <code class="objeto">QLineEdit</code> para escribir un mensaje, un botón "Añadir al log", y un <code class="objeto">QTextEdit</code> que muestre todos los mensajes enviados. Cada vez que se pulsa el botón, toma el texto del <code class="objeto">QLineEdit</code>, lo agrega al <code class="objeto">QTextEdit</code> (usando append) y luego limpia el <code class="objeto">QLineEdit</code> para que esté listo para otro mensaje. (Bonus: haz que si el <code class="objeto">QLineEdit</code> está vacío y pulsan el botón, no se agregue nada y quizás muestre un <code class="objeto">QMessageBox</code> de advertencia; puedes revisar la sección de diálogos para hacer esto).</p>
+
+<h3 id="cap3_5">3.5 QCheckBox (Casilla de verificación) y QRadioButton (Botón de opción)</h3>
+
+<p><strong>Descripción:</strong> Ambos widgets representan opciones booleanas (verdadero/falso) que el usuario puede seleccionar. Un **<code class="objeto">QCheckBox</code>** es una casilla que puede ser marcada o desmarcada independientemente (se suelen usar varias checkboxes para opciones múltiples no excluyentes). Un **<code class="objeto">QRadioButton</code>** es un botón circular que, por convención, se usa en grupos donde **solo uno** puede estar seleccionado a la vez (opciones mutuamente excluyentes), por ejemplo "Sexo: (o) Masculino ( ) Femenino". Los radio buttons que comparten el mismo padre estarán agrupados automáticamente, o podemos usar un <code><code class="objeto">QButtonGroup</code></code> para manejarlos.</p>
+
+<p><strong>Principales propiedades/métodos:</strong></p>
+
+<ul>
+    <li><strong>Checked (marcado):</strong> <code><code class="propiedad">isChecked</code>()</code> para consultar si está marcado, <code><code class="propiedad">setChecked</code>(True/False)</code> para establecerlo por código.</li>
+    <li><strong>Texto etiqueta:</strong> tanto <code class="objeto">QCheckBox</code> como <code class="objeto">QRadioButton</code> muestran un texto al lado; se configura igual que en <code class="objeto">QPushButton</code>, en constructor o con <code><code class="propiedad">setText</code></code>.</li>
+    <li><strong>Estados tri-estados (solo <code class="objeto">QCheckBox</code>):</strong> <code class="objeto">QCheckBox</code> puede tener un estado intermedio (ni marcado ni desmarcado) útil para selecciones múltiples; se activa con <code><code class="propiedad">setTristate</code>(True)</code> y se maneja con cuidado (fuera del alcance de introductorios).</li>
+</ul>
+
+<p><strong>Señales:</strong></p>
+
+<ul>
+    <li><code><code class="propiedad">toggled</code>(bool)</code>: se emite cuando cambia su estado, pasando True/False según quedó. (Ambos widgets la tienen).</li>
+    <li><code><code class="propiedad">stateChanged</code>(int)</code>: similar, pero indica con un entero (0 desmarcado, 1 marcada, 2 intermedio en caso de tri-state).</li>
+    <li>Para <code class="objeto">QRadioButton</code>, <code><code class="propiedad">toggled</code></code> se usa típicamente y si está en grupo, al togglear uno se destoggea el otro.</li>
+</ul>
+
+<p><strong>Ejemplo (<code class="objeto">CheckBox</code>):</strong> Ventana con un <code class="objeto">QLabel</code> y un <code class="objeto">QCheckBox</code>. La etiqueta indica si la opción está activa o no. Al marcar/desmarcar la caja, actualizamos el texto de la etiqueta.</p>
+
+<pre><code class="language-python">import sys
+from PyQt6.QtWidgets import QApplication, QWidget, QCheckBox, QLabel, QVBoxLayout
+
+class VentanaCheck(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo QCheckBox")
+        self.<code class="variable">checkbox</code> = QCheckBox("Opción disponible")
+        self.<code class="variable">label</code> = QLabel("Estado: No activada")
+        # Conectar señal toggled al método actualizar_estado
+        self.<code class="variable">checkbox</code>.<code class="propiedad">toggled</code>.<code class="propiedad">connect</code>(self.<code class="funcion">actualizar_estado</code>)
+        # Layout
+        layout = QVBoxLayout()
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">checkbox</code>)
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">label</code>)
+        self.<code class="propiedad">setLayout</code>(layout)
+
+    def <span class="funcion">actualizar_estado</span>(self, <span class="variable">estado</span>):
+        if estado:  # True = marcado
+            self.<code class="variable">label</code>.<code class="propiedad">setText</code>("Estado: Activada")
+        else:
+            self.<code class="variable">label</code>.<code class="propiedad">setText</code>("Estado: No activada")
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaCheck()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>Inicialmente la etiqueta muestra "Estado: No activada". Al marcar la casilla, se llamará a <code><code class="funcion">actualizar_estado</code>(True)</code> y la etiqueta cambiará a "Estado: Activada". Al desmarcar, <code><code class="variable">estado</code></code> será False y mostrará "No activada". Esto demuestra la señal <code><code class="propiedad">toggled</code>(bool)</code>.</p>
+
+<p><strong>Ejemplo (<code class="objeto">RadioButton</code>):</strong> Ahora un ejemplo con <code class="objeto">QRadioButton</code>. Supongamos que queremos escoger un idioma entre dos opciones. Pondremos dos radio buttons "Español" y "Inglés". Cuando el usuario seleccione uno, mostraremos en un label cuál está seleccionado.</p>
+
+<pre><code class="language-python">from PyQt6.QtWidgets import QRadioButton, QWidget, QLabel, QVBoxLayout, QApplication
+import sys
+
+class VentanaRadio(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo QRadioButton")
+        self.<code class="variable">label</code> = QLabel("Selecciona un idioma:")
+        self.<code class="variable">radio1</code> = QRadioButton("Español")
+        self.<code class="variable">radio2</code> = QRadioButton("Inglés")
+        # Podemos agruparlos simplemente añadiéndolos al mismo layout/padre.
+        # Conectar ambos a la misma función
+        self.<code class="variable">radio1</code>.<code class="propiedad">toggled</code>.<code class="propiedad">connect</code>(self.<code class="funcion">seleccion_cambiada</code>)
+        self.<code class="variable">radio2</code>.<code class="propiedad">toggled</code>.<code class="propiedad">connect</code>(self.<code class="funcion">seleccion_cambiada</code>)
+        # Layout
+        layout = QVBoxLayout()
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">label</code>)
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">radio1</code>)
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">radio2</code>)
+        self.<code class="propiedad">setLayout</code>(layout)
+
+    def <span class="funcion">seleccion_cambiada</span>(self):
+        if self.<code class="variable">radio1</code>.<code class="propiedad">isChecked</code>():
+            self.<code class="variable">label</code>.<code class="propiedad">setText</code>("Selecciona un idioma: Español")
+        elif self.<code class="variable">radio2</code>.<code class="propiedad">isChecked</code>():
+            self.<code class="variable">label</code>.<code class="propiedad">setText</code>("Selecciona un idioma: Inglés")
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaRadio()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>Aquí no estamos usando el parámetro de señal, sino que simplemente en cada toggle revisamos cuál está marcado. Como los dos radio comparten padre (el <code><code class="objeto">QWidget</code></code> ventana), Qt automáticamente los agrupa de manera que al marcar uno, el otro se desmarca. Iniciarían ambos desmarcados; podríamos marcar uno por defecto con <code>self.<code class="variable">radio1</code>.<code class="propiedad">setChecked</code>(True)</code> en el constructor si quisiéramos. Cada vez que un radio cambia, la función verifica quién está activo y actualiza el label en consecuencia.</p>
+
+<p><strong>Nota:</strong> También existe <code><code class="objeto">QButtonGroup</code></code> para agrupar botones (checkbox o radio) lógicamente y consultar cuál está marcado más fácilmente, pero para un par simple no es necesario.</p>
+
+<p><strong>Ejercicio 5:</strong> Crea una interfaz con tres <code class="objeto">QCheckBox</code> que representen opciones de toppings de pizza (por ejemplo: "Extra queso", "Pepperoni", "Piña" 🍕). Debajo, un <code class="objeto">QLabel</code> que muestre un resumen del pedido del estilo "Toppings seleccionados: ...". Cada vez que se marque o desmarque cualquier checkbox, la etiqueta debe actualizarse con la lista de toppings seleccionados. (Pista: conecta cada checkbox a una función que compruebe todos los checkboxes y compile una cadena). Asegúrate de manejar el caso de "ninguno seleccionado".</p>
+
+<h3 id="cap3_6">3.6 QComboBox (Caja combinada) y QListWidget (Lista)</h3>
+
+<p><strong>QComboBox (Combo desplegable):</strong> Es un cuadro combinado que al desplegar muestra una lista de opciones y permite seleccionar una. En la interfaz aparece como una especie de menú desplegable. Es útil para elegir entre varias opciones predefinidas ocupando poco espacio.</p>
+
+<ul>
+    <li><strong>Añadir ítems:</strong> <code><code class="propiedad">addItem</code>("Opción1")</code> para agregar opciones de texto (también puede asociar datos ocultos, con sobrecarga de método).</li>
+    <li><strong>Ítem seleccionado:</strong> <code><code class="propiedad">currentIndex</code>()</code> da el índice seleccionado, <code><code class="propiedad">currentText</code>()</code> da el texto. Para establecer selección por código: <code><code class="propiedad">setCurrentIndex</code>(i)</code>.</li>
+    <li><strong>Señal importante:</strong> <code><code class="propiedad">currentIndexChanged</code></code> (puede ser sobrecargada, hay versión que da índice int y otra que da texto str) se emite cuando cambia la selección.</li>
+</ul>
+
+<p><strong>Ejemplo QComboBox:</strong></p>
+
+<pre><code class="language-python">from PyQt6.QtWidgets import QComboBox, QWidget, QLabel, QVBoxLayout, QApplication
+import sys
+
+class VentanaCombo(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo QComboBox")
+        self.<code class="variable">label</code> = QLabel("Elige una fruta:")
+        self.<code class="variable">combo</code> = QComboBox()
+        frutas = ["Manzana", "Banana", "Cereza", "Durazno"]
+        self.<code class="variable">combo</code>.<code class="propiedad">addItems</code>(frutas)  # añade todas las frutas a la vez
+        self.<code class="variable">combo</code>.<code class="propiedad">currentIndexChanged</code>.<code class="propiedad">connect</code>(self.<code class="funcion">seleccion_cambiada</code>)
+        # Layout
+        layout = QVBoxLayout()
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">label</code>)
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">combo</code>)
+        self.<code class="propiedad">setLayout</code>(layout)
+
+    def <span class="funcion">seleccion_cambiada</span>(self, <span class="variable">indice</span>):
+        fruta = self.<code class="variable">combo</code>.<code class="propiedad">currentText</code>()
+        self.<code class="variable">label</code>.<code class="propiedad">setText</code>(f"Elige una fruta: {fruta}")
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaCombo()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>La combo desplegable inicia mostrando "Manzana" (índice 0). Al desplegar puedes elegir otra fruta. Cada vez que cambias, la etiqueta se actualiza para reflejar la selección actual.</p>
+
+<p><strong>QListWidget (Lista de ítems):</strong> Este widget muestra una lista vertical de elementos, permitiendo selecciones simples o múltiples. A diferencia de <code class="objeto">QComboBox</code>, <code class="objeto">QListWidget</code> ocupa más espacio pero es útil para mostrar listas largas o permitir selección múltiple.</p>
+
+<ul>
+    <li><strong>Añadir ítems:</strong> <code><code class="propiedad">addItem</code>("Texto")</code> o <code><code class="propiedad">addItems</code>([list])</code>.</li>
+    <li><strong>Selección:</strong> por defecto una lista permite seleccionar un elemento a la vez. <code><code class="propiedad">currentItem</code>()</code> da el item seleccionado (un objeto <code class="objeto">QListWidgetItem</code>) y <code><code class="propiedad">currentItem</code>().<code class="propiedad">text</code>()</code> su texto. Para selección múltiple, se puede usar <code><code class="propiedad">setSelectionMode</code>(<code class="objeto">QAbstractItemView</code>.<code class="propiedad">MultiSelection</code>)</code> y entonces hay que iterar por <code><code class="propiedad">selectedItems</code>()</code>.</li>
+    <li><strong>Señales:</strong> <code><code class="propiedad">itemClicked</code>(<code class="objeto">QListWidgetItem</code>)</code> o <code><code class="propiedad">itemSelectionChanged</code>()</code>.</li>
+</ul>
+
+<p><strong>Ejemplo QListWidget:</strong></p>
+
+<pre><code class="language-python">from PyQt6.QtWidgets import QListWidget, QWidget, QLabel, QVBoxLayout, QApplication
+import sys
+
+class VentanaLista(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo QListWidget")
+        self.<code class="variable">label</code> = QLabel("Elemento seleccionado: (ninguno)")
+        self.<code class="variable">lista</code> = QListWidget()
+        elementos = ["Rojo", "Verde", "Azul", "Amarillo"]
+        self.<code class="variable">lista</code>.<code class="propiedad">addItems</code>(elementos)
+        self.<code class="variable">lista</code>.<code class="propiedad">itemClicked</code>.<code class="propiedad">connect</code>(self.<code class="funcion">mostrar_seleccion</code>)
+        # Layout
+        layout = QVBoxLayout()
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">lista</code>)
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">label</code>)
+        self.<code class="propiedad">setLayout</code>(layout)
+
+    def <span class="funcion">mostrar_seleccion</span>(self, <span class="variable">item</span>):
+        self.<code class="variable">label</code>.<code class="propiedad">setText</code>(f"Elemento seleccionado: {item.<code class="propiedad">text</code>()}")
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaLista()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>Aquí la lista muestra colores. Al hacer clic en algún color, la etiqueta al pie mostrará "Elemento seleccionado: Azul" (por ejemplo), según corresponda.</p>
+
+<p>Estos son solo algunos de los widgets básicos. Qt ofrece muchos más (spin boxes para números, sliders, date pickers, etc.), pero con los vistos ya puedes crear interfaces bastante funcionales. A continuación, aprenderemos cómo organizar varios widgets en una ventana usando **layouts** (diseños), ya que en ejemplos anteriores usamos solo un layout vertical simple. El diseño de la interfaz es crucial para lograr ventanas ordenadas y adaptables.</p>
+
+<p><strong>Ejercicio 6:</strong> Crea una interfaz que combine múltiples widgets básicos: por ejemplo, un formulario simple de "Registro": etiquetas y campos para "Nombre" (<code class="objeto">QLineEdit</code>), "Descripción" (<code class="objeto">QTextEdit</code>), una <code class="objeto">QCheckBox</code> de "Acepto términos", y un <code class="objeto">QPushButton</code> de "Enviar". El botón debe estar deshabilitado inicialmente y solo habilitarse cuando la checkbox de términos esté marcada. Al hacer clic en "Enviar", si todos los campos tienen algo escrito, podría simplemente mostrar un mensaje en un <code class="objeto">QLabel</code> oculto que diga "¡Registro completado!" (o usar un <code class="objeto">QMessageBox</code>, ver capítulo 7). Practica organizar estos widgets en layouts para que se vea ordenado (por ejemplo, usar un <code class="objeto">QFormLayout</code> o una combinación de layouts horizontales y verticales). Este ejercicio te ayudará a repasar creación de widgets, establecer textos, manejar propiedades (habilitar/deshabilitar botón) y conectar señales (checkbox toggled -> habilitar botón).</p>
+
+<!-- CAPÍTULO 4 -->
+<h2 id="cap4">4. Diseño de interfaces gráficas (Layouts)</h2>
+<p>Cuando se coloca más de un widget en una ventana, surge la pregunta: **¿cómo organizarlos?** Puedes especificar posiciones absolutas (x, y) y tamaños manualmente para cada widget, pero eso es engorroso y no adaptable (si la ventana cambia de tamaño, los controles no se recolocan automáticamente, por ejemplo). En Qt, la forma recomendada de gestionar la disposición es mediante **layouts**.</p>
+
+<h3 id="cap4_1">4.1 Concepto de layout</h3>
+<p>Un **layout** es un objeto que se encarga de posicionar y redimensionar los widgets hijos de forma consistente, ya sea en fila, columna, rejilla, etc. Los layouts hacen que la interfaz sea *responsiva* a cambios de tamaño y resoluciones diferentes.</p>
+
+<p>En PyQt6 tenemos varios tipos de layout en el módulo <code>PyQt6.QtWidgets</code>:</p>
+
+<ul>
+    <li><code><code class="objeto">QHBoxLayout</code></code> – Layout horizontal: coloca widgets uno al lado del otro (de izquierda a derecha).</li>
+    <li><code><code class="objeto">QVBoxLayout</code></code> – Layout vertical: coloca widgets de arriba abajo.</li>
+    <li><code><code class="objeto">QGridLayout</code></code> – Layout en forma de cuadrícula (tabla): permite colocar widgets en celdas con coordenadas (fila, columna), similar a una tabla.</li>
+    <li><code><code class="objeto">QFormLayout</code></code> – Layout de formulario: organiza pares etiqueta-control en dos columnas (muy útil para formularios donde la primera columna son <code class="objeto">QLabel</code> y la segunda los campos correspondientes).</li>
+    <li><code><code class="objeto">QStackedLayout</code></code>, <code><code class="objeto">QStackedWidget</code></code> – otros layouts para pilas de widgets (solo uno visible a la vez), etc., más avanzados.</li>
+</ul>
+
+<p>También hay contenedores especiales como <code><code class="objeto">QSplitter</code></code> (divide el espacio con barras ajustables) y <code><code class="objeto">QTabWidget</code></code> (que veremos en controles avanzados) que internamente usan layouts.</p>
+
+<p>Para usar un layout, normalmente se sigue este proceso:</p>
+
+<ol>
+    <li>Crear el objeto layout deseado, por ejemplo <code>layout = QHBoxLayout()</code> o similar.</li>
+    <li>Añadir widgets al layout con métodos como <code><code class="propiedad">addWidget</code>(widget)</code> para QVBox/QHBox, o <code><code class="propiedad">addWidget</code>(widget, row, col)</code> para <code class="objeto">QGridLayout</code>, etc. (Cada clase de layout tiene métodos adecuados, p.ej. <code class="objeto">QFormLayout</code> tiene <code><code class="propiedad">addRow</code>(label, field)</code>).</li>
+    <li>Asignar el layout a un contenedor (por ejemplo a la ventana principal o a un <code class="objeto">QWidget</code> contenedor) usando <code>parentWidget.<code class="propiedad">setLayout</code>(layout)</code>. Una vez hecho esto, el layout asumirá el control de la posición de los hijos.</li>
+</ol>
+
+<p>Un widget al que se le haya aplicado un layout ya no debería posicionarse manualmente con <code><code class="propiedad">move</code>()</code> o <code><code class="propiedad">resize</code>()</code>, pues el layout anulará esas configuraciones para ajustarlo según sus reglas.</p>
+
+<p><strong>Alineación y estiramiento:</strong> Los layouts también permiten afinar alineación (por ejemplo, centrar un widget dentro del layout) y agregar "espacios vacíos" expansibles (<code><code class="propiedad">addStretch</code></code>) para empujar widgets hacia lados. Por simplicidad, no entraremos en todos esos detalles, pero mencionaremos que <code>layout.<code class="propiedad">addStretch</code>()</code> puede servir para separar elementos, y también que al añadir widget se puede pasar alineación: <code>layout.<code class="propiedad">addWidget</code>(w, alignment=<code class="objeto">Qt</code>.<code class="propiedad">AlignmentFlag</code>.<code class="propiedad">AlignRight</code>)</code> por ejemplo.</p>
+
+<h3 id="cap4_2">4.2 Layouts verticales, horizontales y de cuadrícula</h3>
+
+<p>Veamos ejemplos concretos de uso de layouts para entenderlos mejor.</p>
+
+<p><strong>Ejemplo 1: Layout vertical (<code class="objeto">QVBoxLayout</code>)</strong></p>
+
+<p>Queremos crear una ventana con tres botones apilados verticalmente (uno debajo del otro).</p>
+
+<pre><code class="language-python">import sys
+from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
+
+app = QApplication(sys.<code class="variable">argv</code>)
+window = QWidget()
+window.<code class="propiedad">setWindowTitle</code>("Layout Vertical")
+# Crear botones
+btn1 = QPushButton("Botón 1")
+btn2 = QPushButton("Botón 2")
+btn3 = QPushButton("Botón 3")
+# Crear layout vertical y añadir botones
+v_layout = QVBoxLayout()
+v_layout.<code class="propiedad">addWidget</code>(btn1)
+v_layout.<code class="propiedad">addWidget</code>(btn2)
+v_layout.<code class="propiedad">addWidget</code>(btn3)
+# Asignar el layout a la ventana
+window.<code class="propiedad">setLayout</code>(v_layout)
+window.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>Esto creará una ventana donde los tres botones aparecen distribuidos verticalmente ocupando el ancho del contenedor de forma uniforme (por defecto, el layout estira los widgets para llenar horizontalmente; verticalmente los ajusta según contenido, pero todos estarán uno debajo del otro). Si redimensionas la ventana manualmente, verás que los botones se mantienen en disposición vertical y se redimensionan a lo ancho.</p>
+
+<p><strong>Ejemplo 2: Layout horizontal (<code class="objeto">QHBoxLayout</code>)</strong> – análogo al vertical pero en fila.</p>
+
+<p>Supongamos una interfaz de reproductor multimedia con botones de "Anterior", "Play", "Siguiente" en una fila.</p>
+
+<pre><code class="language-python">from PyQt6.QtWidgets import QHBoxLayout, QWidget, QPushButton, QApplication
+import sys
+
+app = QApplication(sys.<code class="variable">argv</code>)
+window = QWidget()
+window.<code class="propiedad">setWindowTitle</code>("Layout Horizontal")
+btn_prev = QPushButton("Anterior")
+btn_play = QPushButton("Play")
+btn_next = QPushButton("Siguiente")
+h_layout = QHBoxLayout()
+h_layout.<code class="propiedad">addWidget</code>(btn_prev)
+h_layout.<code class="propiedad">addWidget</code>(btn_play)
+h_layout.<code class="propiedad">addWidget</code>(btn_next)
+window.<code class="propiedad">setLayout</code>(h_layout)
+window.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>Los botones estarán en una fila. Por defecto, se ajustan al alto mínimo necesario. Podemos añadir espacios vacíos, por ejemplo si queremos que "Play" quede centrado con espacio a los lados: <code>h_layout.<code class="propiedad">addStretch</code>()</code> inserta un espacio expansible que empuja los botones restantes. Por ejemplo, podríamos hacer <code>h_layout.<code class="propiedad">addWidget</code>(btn_prev); h_layout.<code class="propiedad">addStretch</code>(); h_layout.<code class="propiedad">addWidget</code>(btn_play); h_layout.<code class="propiedad">addStretch</code>(); h_layout.<code class="propiedad">addWidget</code>(btn_next)</code> para tener prev a la izquierda, play centrado, next a la derecha. En este ejemplo simple no lo hicimos, pero es bueno saberlo.</p>
+
+<p><strong>Ejemplo 3: Layout de cuadrícula (<code class="objeto">QGridLayout</code>)</strong></p>
+
+<p>Este es útil para formularios más personalizados. Imaginemos una cuadrícula 2x2 con etiquetas en la primera columna y campos de entrada en la segunda columna:</p>
+
+<pre><code class="language-python">from PyQt6.QtWidgets import QGridLayout, QWidget, QLabel, QLineEdit, QPushButton, QApplication
+import sys
+
+app = QApplication(sys.<code class="variable">argv</code>)
+window = QWidget()
+window.<code class="propiedad">setWindowTitle</code>("Layout Cuadrícula")
+grid = QGridLayout()
+lbl1 = QLabel("Usuario:")
+lbl2 = QLabel("Contraseña:")
+txt1 = QLineEdit()
+txt2 = QLineEdit()
+txt2.<code class="propiedad">setEchoMode</code>(<code class="objeto">QLineEdit</code>.<code class="propiedad">EchoMode</code>.<code class="propiedad">Password</code>)  # campo de password
+# Colocar elementos en la cuadrícula: grid.addWidget(widget, fila, columna, [rowspan, colspan])
+grid.<code class="propiedad">addWidget</code>(lbl1, 0, 0)
+grid.<code class="propiedad">addWidget</code>(txt1, 0, 1)
+grid.<code class="propiedad">addWidget</code>(lbl2, 1, 0)
+grid.<code class="propiedad">addWidget</code>(txt2, 1, 1)
+# Podemos añadir un botón de login debajo ocupando dos columnas:
+btn = QPushButton("Iniciar sesión")
+grid.<code class="propiedad">addWidget</code>(btn, 2, 0, 1, 2)  # fila 2, col 0, que abarque 1 fila y 2 columnas (es decir, toda la fila)
+window.<code class="propiedad">setLayout</code>(grid)
+window.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+<p> <a href="https://doc.qt.io/qt-5/qtwidgets-tutorials-addressbook-part1-example.html">Figura 1: Ejemplo de interfaz con un layout de cuadrícula para un formulario de inicio de sesión. Dos <code class="objeto">QLabel</code> ("Usuario", "Contraseña") a la izquierda y dos <code class="objeto">QLineEdit</code> correspondientes a la derecha, con un <code class="objeto">QPushButton</code> centrado en la fila inferior. Esta disposición se logra fácilmente con <code class="objeto">QGridLayout</code>, organizando widgets en filas y columnas.</a></p>
+
+<p>Al ejecutar el ejemplo de código anterior, la ventana mostrará un pequeño formulario de login con campos de usuario y contraseña, y un botón de iniciar sesión centrado debajo. Gracias al <code class="objeto">QGridLayout</code>, las columnas están alineadas (las etiquetas alineadas a la derecha quizás, eso se puede ajustar, pero quedan ordenadas). Si agrandas la ventana, verás que los campos de texto se estirarán horizontalmente para aprovechar el espacio, mientras que las etiquetas se mantienen en su tamaño de contenido. Qt decide esto automáticamente: normalmente los widgets "expandibles" como <code class="objeto">QLineEdit</code> crecen, mientras que <code class="objeto">QLabel</code> tiene tamaño fijo según texto.</p>
+
+<p><strong>Ejemplo 4: <code class="objeto">QFormLayout</code> (diseño de formulario)</strong></p>
+
+<p>Lo anterior se puede hacer de manera más directa con <code><code class="objeto">QFormLayout</code></code>, que esencialmente es una abstracción de dos columnas. Podríamos reescribir el ejemplo así:</p>
+
+<pre><code class="language-python">from PyQt6.QtWidgets import QFormLayout, QWidget, QLineEdit, QPushButton, QApplication
+import sys
+
+app = QApplication(sys.<code class="variable">argv</code>)
+window = QWidget()
+window.<code class="propiedad">setWindowTitle</code>("Layout Formulario")
+form_layout = QFormLayout()
+form_layout.<code class="propiedad">addRow</code>("Usuario:", QLineEdit())
+pw = QLineEdit()
+pw.<code class="propiedad">setEchoMode</code>(<code class="objeto">QLineEdit</code>.<code class="propiedad">EchoMode</code>.<code class="propiedad">Password</code>)
+form_layout.<code class="propiedad">addRow</code>("Contraseña:", pw)
+btn = QPushButton("Iniciar sesión")
+form_layout.<code class="propiedad">addRow</code>(btn)  # si se pasa solo un widget, lo coloca a lo ancho en la segunda columna
+window.<code class="propiedad">setLayout</code>(form_layout)
+window.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>Este código es más compacto: <code><code class="propiedad">addRow</code>("Texto:", widget)</code> crea internamente un <code class="objeto">QLabel</code> con el texto dado y lo pone en la primera columna, y el widget en la segunda. Cuando <code><code class="propiedad">addRow</code></code> recibe un solo widget (como hicimos con el botón), lo coloca alineado con la segunda columna (dejando la primera columna vacía en esa fila). <code class="objeto">QFormLayout</code> también maneja alineación automática de etiquetas a la derecha por defecto, etc.</p>
+
+<h3 id="cap4_3">4.3 Ejemplos de organización de widgets</h3>
+
+<p>Combinando lo aprendido de widgets y layouts, podemos construir interfaces más útiles. Aquí un par de ejemplos más elaborados:</p>
+
+<p><strong>Ejemplo: Calculadora simple (diseño de botones en rejilla)</strong></p>
+
+<p>Supongamos que queremos diseñar la disposición de botones de una calculadora básica: 4x4 (dígitos 0-9 y operaciones). Podemos usar <code class="objeto">QGridLayout</code> para colocarlos en posición:</p>
+
+<pre><code class="language-python">from PyQt6.QtWidgets import QGridLayout, QWidget, QPushButton, QLineEdit, QApplication
+import sys
+
+class VentanaCalculadora(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Calculadora")
+        grid = QGridLayout()
+        # Digitos
+        numeros = [
+            ('7', 0, 0), ('8', 0, 1), ('9', 0, 2),
+            ('4', 1, 0), ('5', 1, 1), ('6', 1, 2),
+            ('1', 2, 0), ('2', 2, 1), ('3', 2, 2),
+            ('0', 3, 0)
+        ]
+        for text, row, col in numeros:
+            btn = QPushButton(text)
+            grid.<code class="propiedad">addWidget</code>(btn, row, col)
+        # Operaciones
+        ops = [('+', 0, 3), ('-', 1, 3), ('*', 2, 3), ('/', 3, 3), ('=', 3, 2)]
+        for text, row, col in ops:
+            btn = QPushButton(text)
+            grid.<code class="propiedad">addWidget</code>(btn, row, col)
+        # Podemos añadir un display en la parte superior que ocupe todas las columnas:
+        display = QLineEdit()
+        display.<code class="propiedad">setReadOnly</code>(True)
+        grid.<code class="propiedad">addWidget</code>(display, 4, 0, 1, 4)  # nota: fila 4, abarcar 4 columnas
+        self.<code class="propiedad">setLayout</code>(grid)
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaCalculadora()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>Aquí creamos 10 botones numéricos posicionándolos con coordenadas de fila y columna, y unos botones de operaciones. Ponemos un <code class="objeto">QLineEdit</code> como pantalla (readOnly) en una fila inferior ocupando todo el ancho (1x4 celdas). Al final, aplicamos el grid a la ventana.</p>
+
+<p>Este solo es el diseño; la funcionalidad (manejar los clics para realizar cálculos) implicaría conectar cada botón a métodos que actualicen el display, etc., lo cual entra en la lógica de la aplicación más que en la disposición. Pero con el layout definido, ya tendríamos la calculadora visualmente armada.</p>
+
+<p><strong>Ejemplo: Ventana con secciones (layouts anidados)</strong></p>
+
+<p>Puedes anidar layouts dentro de otros. Por ejemplo, quieres una ventana principal con un área superior y una inferior. En el área superior, dos columnas (por ejemplo, imagen a la izquierda y texto a la derecha). En el área inferior, botones alineados a la derecha.</p>
+
+<p>Podrías hacer:</p>
+
+<ul>
+    <li>Un <code class="objeto">QVBoxLayout</code> global para toda la ventana (vertical).</li>
+    <li>En el <code class="objeto">QVBoxLayout</code> global, añades primero un <code class="objeto">QWidget</code> (contenedor) que tendrá un <code class="objeto">QHBoxLayout</code> interno para la sección superior, y luego añades otro <code class="objeto">QWidget</code> o directamente otro layout para la sección inferior.</li>
+    <li>Para la sección superior: <code class="objeto">QHBoxLayout</code> con, digamos, un <code class="objeto">QLabel</code> (imagen) y un <code class="objeto">QTextEdit</code> (texto).</li>
+    <li>Para la sección inferior: podrías usar un <code class="objeto">QHBoxLayout</code> con espacio expansible para empujar los botones a la derecha.</li>
+</ul>
+
+<p>Este concepto de anidar es común: cada sección de la ventana puede tener su propio layout, agrupando luego en uno principal.</p>
+
+<p><strong>Ejercicio 7:</strong> Revisa la interfaz de registro del **Ejercicio 6** de la sección anterior. Ahora intenta mejorarla usando layouts: por ejemplo, usa <code><code class="objeto">QFormLayout</code></code> para las etiquetas y campos, y debajo un <code><code class="objeto">QHBoxLayout</code></code> para alinear el botón de "Enviar" a la derecha. También asegúrate de que al expandir la ventana, los campos de texto crecen en horizontal mientras que la etiqueta de mensaje (si existe) se mantiene centrada o ajustada. Experimenta con <code><code class="propiedad">addStretch</code>()</code> o alineaciones para lograr la presentación deseada.</p>
+
+<!-- CAPÍTULO 5 -->
+<h2 id="cap5">5. Manejo de eventos: señales y slots</h2>
+<p>En una aplicación gráfica, no basta con colocar widgets en pantalla; necesitamos responder a las **acciones del usuario** (o eventos del sistema). Esto incluye clics de botones, cambios en campos de texto, selecciones de ítems, temporizadores, etc. Qt maneja esto mediante el mecanismo de **señales y slots**.</p>
+
+<h3 id="cap5_1">5.1 ¿Qué son señales y slots?</h3>
+
+<p>*(Hemos descrito arriba conceptualmente. Resumimos brevemente en términos de Qt/PyQt6)*</p>
+
+<p>En Qt, las señales y slots permiten una comunicación desacoplada entre objetos. Un objeto no necesita saber quién escuchará sus eventos, solo emite la señal. Del otro lado, cualquier objeto puede suscribirse (conectarse) a esa señal con una función. Esto evita tener que sobrescribir métodos o hacer polling de estados; el flujo de la aplicación se vuelve dirigido por eventos.</p>
+
+<p>En PyQt6 no necesitamos declarar nada especial para usar señales predefinidas de los widgets, están ya disponibles como atributos. Por ejemplo, <code><code class="variable">boton</code>.<code class="propiedad">clicked</code></code> es un objeto tipo Signal que ya existe.</p>
+
+<h3 id="cap5_2">5.2 Conectar eventos de widgets a funciones (slots)</h3>
+
+<p>La sintaxis general, como ya usamos, es:<br>
+<code>widget.<code class="propiedad">signal</code>.<code class="propiedad">connect</code>(funcion)</code><br>
+donde <code><code class="propiedad">signal</code></code> es, por ejemplo, <code><code class="propiedad">clicked</code></code> (sin paréntesis), y <code>funcion</code> es la función que queremos que se ejecute.</p>
+
+<p>Al conectar, debemos asegurarnos de que la función tenga la firma correcta. Si el signal emite un valor (como un bool, un str, etc), la función debe aceptarlo. Si no lo necesita, podemos ignorar el parámetro en la definición de la función usando <code>*args</code> o poniendo un parámetro que no usamos.</p>
+
+<p>Ejemplos de conexión ya hemos visto varios. Retomemos uno para enfatizar:</p>
+
+<pre><code class="language-python">self.<code class="variable">boton</code> = QPushButton("Haz click")
+self.<code class="variable">boton</code>.<code class="propiedad">clicked</code>.<code class="propiedad">connect</code>(self.<code class="funcion">on_click</code>)
+...
+def <span class="funcion">on_click</span>(self):
+    <code class="funcion">print</code>("¡Botón pulsado!")
+</code></pre>
+
+<p>Esto imprime el mensaje cada vez que se hace click.</p>
+
+<p>Otro ejemplo con parámetros:</p>
+
+<pre><code class="language-python">self.<code class="variable">campo</code> = QLineEdit()
+self.<code class="variable">campo</code>.<code class="propiedad">textChanged</code>.<code class="propiedad">connect</code>(self.<code class="funcion">log_texto</code>)
+
+def <span class="funcion">log_texto</span>(self, <span class="variable">nuevo_texto</span>):
+    <code class="funcion">print</code>(f"El texto ahora es: {nuevo_texto}")
+</code></pre>
+
+<p>Aquí la señal <code><code class="propiedad">textChanged</code></code> pasa el texto nuevo como str a <code><code class="funcion">log_texto</code></code>, que lo imprime.</p>
+
+<p>También podemos usar **lambda** para pequeñas acciones, por ejemplo:</p>
+
+<pre><code class="language-python">self.<code class="variable">botonSalir</code> = QPushButton("Salir")
+self.<code class="variable">botonSalir</code>.<code class="propiedad">clicked</code>.<code class="propiedad">connect</code>(lambda: self.<code class="propiedad">close</code>())
+</code></pre>
+
+<p>Esto cierra la ventana actual al hacer click (llama a <code>self.<code class="propiedad">close</code>()</code> vía lambda). Podríamos haber conectado directamente a <code>self.<code class="propiedad">close</code></code> también, en este caso.</p>
+
+<p>Otro uso de lambda es si queremos pasar un argumento específico a la función que no es directamente proporcionado por la señal. Supongamos varios botones que llaman a la misma función con un identificador:</p>
+
+<pre><code class="language-python">self.<code class="variable">btnA</code> = QPushButton("Opción A")
+self.<code class="variable">btnB</code> = QPushButton("Opción B")
+self.<code class="variable">btnA</code>.<code class="propiedad">clicked</code>.<code class="propiedad">connect</code>(lambda: self.<code class="funcion">elegir_opcion</code>("A"))
+self.<code class="variable">btnB</code>.<code class="propiedad">clicked</code>.<code class="propiedad">connect</code>(lambda: self.<code class="funcion">elegir_opcion</code>("B"))
+...
+def <span class="funcion">elegir_opcion</span>(self, <span class="variable">opcion</span>):
+    <code class="funcion">print</code>(f"Se eligió la opción {opcion}")
+</code></pre>
+
+<p>Aquí en ambos casos llamamos a <code><code class="funcion">elegir_opcion</code></code>, pero pasándole "A" o "B" según corresponda. Sin lambda, podríamos haber buscado cuál botón envió la señal, pero con lambda es más directo para casos sencillos.</p>
+
+<h3 id="cap5_3">5.3 Ejemplos prácticos de manejo de eventos</h3>
+
+<p>Revisemos algunas situaciones típicas:</p>
+
+<ul>
+    <li><strong>Sincronizar dos widgets:</strong> por ejemplo, un <code class="objeto">QSlider</code> (barra deslizante) y un <code class="objeto">QSpinBox</code> (control numérico). Ambos tienen un valor numérico. Podemos conectar el <code><code class="propiedad">valueChanged</code>(int)</code> del slider al <code><code class="propiedad">setValue</code>(int)</code> del spinbox y viceversa, de modo que mover uno actualice el otro y estén siempre en sincronía.</li>
+</ul>
+
+<pre><code class="language-python">from PyQt6.QtWidgets import QSlider, QSpinBox, QWidget, QHBoxLayout, QApplication
+from PyQt6.QtCore import Qt
+import sys
+
+class VentanaSincronizada(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo Sincronización")
+        layout = QHBoxLayout()
+        self.<code class="variable">slider</code> = QSlider(<code class="objeto">Qt</code>.<code class="propiedad">Orientation</code>.<code class="propiedad">Horizontal</code>)
+        self.<code class="variable">slider</code>.<code class="propiedad">setRange</code>(0, 100)
+        self.<code class="variable">spin</code> = QSpinBox()
+        self.<code class="variable">spin</code>.<code class="propiedad">setRange</code>(0, 100)
+        # Conectar en ambas direcciones
+        self.<code class="variable">slider</code>.<code class="propiedad">valueChanged</code>.<code class="propiedad">connect</code>(self.<code class="variable">spin</code>.<code class="propiedad">setValue</code>)
+        self.<code class="variable">spin</code>.<code class="propiedad">valueChanged</code>.<code class="propiedad">connect</code>(self.<code class="variable">slider</code>.<code class="propiedad">setValue</code>)
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">slider</code>)
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">spin</code>)
+        self.<code class="propiedad">setLayout</code>(layout)
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaSincronizada()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>Aquí, usar la propia <code>self.<code class="variable">spin</code>.<code class="propiedad">setValue</code></code> como slot es válido porque es una función. Esto es una característica poderosa: podemos pasar métodos Qt directamente como manejadores de señal.</p>
+
+<ul>
+    <li><strong>Temporizador (<code class="objeto">QTimer</code>):</strong> aunque no es un widget visible, <code class="objeto">QTimer</code> (en QtCore) emite una señal <code><code class="propiedad">timeout</code>()</code> cada cierto intervalo. Podríamos crear un reloj digital actualizando un <code class="objeto">QLabel</code> cada segundo:</li>
+</ul>
+
+<pre><code class="language-python">from PyQt6.QtCore import QTimer, QTime
+from PyQt6.QtWidgets import QLabel, QWidget, QVBoxLayout, QApplication
+import sys
+
+class VentanaReloj(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo Reloj")
+        layout = QVBoxLayout()
+        self.<code class="variable">labelHora</code> = QLabel()
+        timer = QTimer(self)
+        timer.<code class="propiedad">timeout</code>.<code class="propiedad">connect</code>(self.<code class="funcion">actualizar_hora</code>)
+        timer.<code class="propiedad">start</code>(1000)  # 1000 ms = 1 s
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">labelHora</code>)
+        self.<code class="propiedad">setLayout</code>(layout)
+
+    def <span class="funcion">actualizar_hora</span>(self):
+        hora = QTime.<code class="propiedad">currentTime</code>().<code class="propiedad">toString</code>("hh:mm:ss")
+        self.<code class="variable">labelHora</code>.<code class="propiedad">setText</code>(hora)
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaReloj()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>Cada segundo, <code><code class="propiedad">timeout</code></code> llama a <code><code class="funcion">actualizar_hora</code></code>, obtenemos la hora actual y la mostramos.</p>
+
+<ul>
+    <li><strong>Eventos de ventana:</strong> Más allá de señales, Qt también tiene un sistema de eventos más bajo nivel (como eventos de teclado, ratón, etc., capturables sobrescribiendo métodos <code><code class="propiedad">keyPressEvent</code></code>, <code><code class="propiedad">mousePressEvent</code></code> en widgets). Para un principiante, normalmente las señales de los widgets cubren la mayoría de necesidades. Si quisieras, por ejemplo, detectar una tecla Enter global en la ventana, podrías implementar <code>def <span class="funcion">keyPressEvent</span>(self, <span class="variable">event</span>):</code> en tu ventana y chequear <code><code class="variable">event</code>.<code class="propiedad">key</code>()</code>. Pero eso es avanzado comparado con conectar señales de controles específicos, así que lo dejamos mencionado nada más.</li>
+    <li><strong>Comunicación entre ventanas:</strong> si la aplicación tiene múltiples ventanas o diálogos (ver capítulo 7), podrías conectar señales de un diálogo a métodos de la ventana principal para pasar información. Por ejemplo, un diálogo "Configuración" con un botón "Aplicar" podría emitir una señal propia (custom) o simplemente usar su <code><code class="propiedad">accepted</code></code> (si es <code class="objeto">QDialog</code>) para notificar al main window.</li>
+</ul>
+
+<p>En resumen, para **responder a eventos** en PyQt6, identifica la señal apropiada del widget (documentación o usando autocomplete para ver <code>.<code class="propiedad">somethingChanged</code></code> o <code>.<code class="propiedad">clicked</code></code>, etc.), y conéctala a una función. Esa función implementará la lógica necesaria.</p>
+
+<p><strong>Ejercicio 8:</strong> Implementa una pequeña aplicación que simule un semáforo. Debes tener tres <code class="objeto">QLabel</code> circulares (puedes usar texto "●" con colores, o <code class="objeto">QFrame</code> redondos con estilo) representando luces: Roja, Amarilla, Verde. Inicialmente la luz roja está "encendida" (coloreada) y las otras apagadas (gris). Añade un <code class="objeto">QPushButton</code> "Siguiente" que al pulsarlo cambie el estado del semáforo: de rojo a verde (pasando por amarillo brevemente, si quieres hacer ciclo completo: rojo -> verde -> amarillo -> rojo). Cada vez que se pulse, actualiza los colores de los <code class="objeto">QLabel</code>. Deberás conectar el botón a una función que cambie estados; puedes usar una variable de estado interna (por ejemplo, 0=rojo, 1=verde, 2=amarillo y volver a 0). Este ejercicio te hará practicar señales, cambios de propiedades de widgets (color de texto o stylesheet) y lógica condicional.</p>
+
+<!-- CAPÍTULO 6 -->
+<h2 id="cap6">6. Controles avanzados</h2>
+<p>Además de los widgets básicos, PyQt6 incluye muchos **controles más complejos** para manejar datos estructurados, vistas jerárquicas, pestañas, etc. Como este manual es introductorio, solo presentaremos algunos de los más útiles de manera sencilla:</p>
+
+<h3 id="cap6_1">6.1 QTableWidget (Tabla)</h3>
+
+<p><strong>Descripción:</strong> <code><code class="objeto">QTableWidget</code></code> muestra datos en forma de tabla (filas y columnas), similar a una hoja de cálculo simple o una tabla de base de datos. A diferencia de <code><code class="objeto">QTableView</code></code> (que usa un modelo externo de datos), <code class="objeto">QTableWidget</code> ya tiene un modelo interno integrado, lo que permite añadir elementos directamente en las celdas.</p>
+
+<p><strong>Principales métodos y propiedades:</strong></p>
+
+<ul>
+    <li><strong>Tamaño de la tabla:</strong> <code><code class="propiedad">setRowCount</code>(n)</code> y <code><code class="propiedad">setColumnCount</code>(m)</code> definen la cantidad de filas y columnas.</li>
+    <li><strong>Etiquetas de encabezado:</strong> <code><code class="propiedad">setHorizontalHeaderLabels</code>([list])</code> y <code><code class="propiedad">setVerticalHeaderLabels</code>([list])</code> para poner títulos a las columnas/filas (opcional).</li>
+    <li><strong>Acceder a celdas:</strong> puedes usar <code><code class="propiedad">setItem</code>(fila, col, <code class="objeto">QTableWidgetItem</code>("texto"))</code> para colocar un item en cierta celda. <code><code class="propiedad">item</code>(fila, col)</code> te devuelve el <code class="objeto">QTableWidgetItem</code> en esa posición (de donde puedes obtener texto con <code>.<code class="propiedad">text</code>()</code>).</li>
+    <li><strong>Inserción y remoción:</strong> <code><code class="propiedad">insertRow</code>(index)</code>, <code><code class="propiedad">insertColumn</code>(index)</code>, <code><code class="propiedad">removeRow</code></code>, etc., para modificar dinámicamente.</li>
+    <li><strong>Selección:</strong> por defecto, la selección es por celda individual. Puedes cambiar con <code><code class="propiedad">setSelectionBehavior</code></code> (seleccionar filas completas, etc.) y <code><code class="propiedad">setSelectionMode</code></code> (múltiple o sencilla).</li>
+    <li><strong>Editar:</strong> por defecto, el usuario puede editar las celdas con doble click. Se puede deshabilitar con <code><code class="propiedad">setEditTriggers</code>(<code class="objeto">QAbstractItemView</code>.<code class="propiedad">NoEditTriggers</code>)</code> si quieres solo lectura o control personalizado.</li>
+</ul>
+
+<p><strong>Ejemplo:</strong> Crear una tabla de 3x3 y llenar algunas celdas:</p>
+
+<pre><code class="language-python">from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QWidget, QVBoxLayout, QApplication
+import sys
+
+class VentanaTabla(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo QTableWidget")
+        layout = QVBoxLayout()
+        self.<code class="variable">table</code> = QTableWidget()
+        self.<code class="variable">table</code>.<code class="propiedad">setRowCount</code>(3)
+        self.<code class="variable">table</code>.<code class="propiedad">setColumnCount</code>(3)
+        self.<code class="variable">table</code>.<code class="propiedad">setHorizontalHeaderLabels</code>(["A", "B", "C"])
+        # Llenar algunos datos
+        self.<code class="variable">table</code>.<code class="propiedad">setItem</code>(0, 0, QTableWidgetItem("1"))
+        self.<code class="variable">table</code>.<code class="propiedad">setItem</code>(0, 1, QTableWidgetItem("2"))
+        self.<code class="variable">table</code>.<code class="propiedad">setItem</code>(0, 2, QTableWidgetItem("3"))
+        self.<code class="variable">table</code>.<code class="propiedad">setItem</code>(1, 0, QTableWidgetItem("4"))
+        # Podemos también añadir al vuelo filas con insertRow
+        self.<code class="variable">table</code>.<code class="propiedad">insertRow</code>(self.<code class="variable">table</code>.<code class="propiedad">rowCount</code>())
+        self.<code class="variable">table</code>.<code class="propiedad">setItem</code>(3, 0, QTableWidgetItem("Nuevo"))
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">table</code>)
+        self.<code class="propiedad">setLayout</code>(layout)
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaTabla()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>Para integrar esto en una ventana, simplemente lo añades a un layout como cualquier widget. Por ejemplo, en un <code><code class="objeto">QVBoxLayout</code></code> junto a otros controles.</p>
+
+<p><strong>Señales útiles:</strong> <code><code class="propiedad">cellClicked</code>(row, col)</code>, <code><code class="propiedad">cellChanged</code>(row, col)</code> (si se edita y cambia), <code><code class="propiedad">itemSelectionChanged</code>()</code> cuando cambia la selección.</p>
+
+<p>Un uso común es poblar la tabla con datos (por ejemplo, resultados de algo) y permitir que al seleccionar una fila se muestre detalle. Para un principiante, lo importante es saber cómo llenar y leer la tabla. Para leer, se haría <code><code class="variable">item</code> = table.<code class="propiedad">item</code>(fila, col)</code> y luego <code><code class="variable">text</code> = item.<code class="propiedad">text</code>()</code>.</p>
+
+<h3 id="cap6_2">6.2 QTabWidget (Pestañas)</h3>
+
+<p><strong>Descripción:</strong> <code><code class="objeto">QTabWidget</code></code> permite organizar múltiples *páginas* dentro de la misma ventana, accesibles mediante pestañas (tabs). Cada pestaña tiene un título (y opcional icono) y contiene un widget (que a su vez puede tener layouts y sub-widgets). Es útil para dividir una interfaz en secciones sin usar ventanas separadas.</p>
+
+<p><strong>Uso básico:</strong></p>
+
+<ul>
+    <li>Crear un <code class="objeto">QTabWidget</code>.</li>
+    <li>Crear los widgets que irán en cada pestaña (pueden ser simples <code class="objeto">QWidget</code>s con su propio diseño interno).</li>
+    <li>Usar <code><code class="propiedad">addTab</code>(widget, "Título")</code> para añadir cada pestaña.</li>
+</ul>
+
+<p><strong>Ejemplo:</strong></p>
+
+<pre><code class="language-python">from PyQt6.QtWidgets import QTabWidget, QTextEdit, QWidget, QVBoxLayout, QLabel, QApplication
+import sys
+
+class VentanaTabs(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo QTabWidget")
+        layout = QVBoxLayout()
+        self.<code class="variable">tabs</code> = QTabWidget()
+        # Crear contenido de pestañas
+        tab1 = QWidget()
+        tab1_layout = QVBoxLayout()
+        tab1_layout.<code class="propiedad">addWidget</code>(QLabel("Contenido de la pestaña 1"))
+        tab1.<code class="propiedad">setLayout</code>(tab1_layout)
+
+        tab2 = QWidget()
+        tab2_layout = QVBoxLayout()
+        campo = QTextEdit()
+        campo.<code class="propiedad">setPlaceholderText</code>("Escribe algo en la pestaña 2")
+        tab2_layout.<code class="propiedad">addWidget</code>(campo)
+        tab2.<code class="propiedad">setLayout</code>(tab2_layout)
+
+        self.<code class="variable">tabs</code>.<code class="propiedad">addTab</code>(tab1, "Pestaña Uno")
+        self.<code class="variable">tabs</code>.<code class="propiedad">addTab</code>(tab2, "Pestaña Dos")
+        layout.<code class="propiedad">addWidget</code>(self.<code class="variable">tabs</code>)
+        self.<code class="propiedad">setLayout</code>(layout)
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaTabs()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>Aquí creamos dos pestañas. La primera tiene simplemente una etiqueta. La segunda tiene un <code class="objeto">QTextEdit</code>. Podríamos hacer la primera pestaña quizás contener el <code class="objeto">QTableWidget</code> del ejemplo anterior, y la segunda alguna configuración, etc., según la aplicación.</p>
+
+<p>Una ventaja es que Qt Designer facilita mucho la creación de pestañas, pero manualmente como ves tampoco es complicado.</p>
+
+<p><strong>Señales:</strong> <code><code class="propiedad">currentChanged</code>(int index)</code> se emite cuando se cambia de pestaña, útil si quieres realizar alguna acción al entrar en una pestaña específica.</p>
+
+<p><strong>Nota:</strong> También existe <code class="objeto">QTabBar</code> (más bajo nivel) y <code class="objeto">QStackedWidget</code> (similar a <code class="objeto">QTabWidget</code> pero sin las pestañas visibles, controlas la página visible por código). Para un manual intro, <code class="objeto">QTabWidget</code> es suficiente.</p>
+
+<h3 id="cap6_3">6.3 Otros controles</h3>
+
+<p>*Mencionaremos brevemente algunos otros controles que podrían ser de interés, aunque sin entrar en detalle de código para cada uno:*</p>
+
+<ul>
+    <li><strong>QTreeWidget:</strong> Similar a <code class="objeto">QTableWidget</code> pero muestra datos en forma jerárquica de árbol (con ítems expandibles). Útil para mostrar estructuras como directorios, datos anidados. Tiene columnas también. Se maneja con <code><code class="objeto">QTreeWidgetItem</code></code> para añadir nodos hijos, etc. Es más complejo que la tabla pero sigue la idea de modelo integrado.</li>
+    <li><strong>QSlider:</strong> Barra deslizante para seleccionar un valor numérico dentro de un rango, de forma visual. Señal principal <code><code class="propiedad">valueChanged</code>(int)</code>. Se puede orientar horizontal o vertical.</li>
+    <li><strong>QSpinBox / QDoubleSpinBox:</strong> Campo numérico con flechas para incrementar/decrementar un valor. <code><code class="propiedad">valueChanged</code></code> es su señal; se configura con rangos mínimo/máximo.</li>
+    <li><strong>QProgressBar:</strong> Barra de progreso, para indicar progreso de una tarea. Puedes setear valor con <code><code class="propiedad">setValue</code>(int)</code> entre 0 y máximo. Modo indeterminado (marquee) con <code><code class="propiedad">setRange</code>(0,0)</code>.</li>
+    <li><strong>QGroupBox:</strong> Un contenedor visual con un título en marco, para agrupar lógicamente otros widgets. Útil para organizar la UI (por ejemplo, "Opciones avanzadas" con varios checkboxes dentro).</li>
+    <li><strong>QTextBrowser:</strong> una variante de <code class="objeto">QTextEdit</code> configurada para mostrar contenido rico (HTML) con navegación de links, etc., sólo lectura.</li>
+    <li><strong>QCalendarWidget:</strong> calendario para seleccionar fechas.</li>
+    <li><strong>QDial:</strong> control circular (como un knob).</li>
+    <li><strong>QWidget promocionados o custom:</strong> Puedes crear tus propios widgets combinando funcionalidad o promoviendo en Qt Designer, pero eso escapa a este manual.</li>
+</ul>
+
+<p>Cada uno de estos widgets tiene sus propios métodos y señales, pero al saber lo básico, aprender uno nuevo suele ser cuestión de ver documentación o ejemplos y seguir el mismo patrón: crear -> configurar -> conectar señales si aplica -> añadir a layout.</p>
+
+<p><strong>Ejercicio 9:</strong> Crea una ventana que contenga un <code class="objeto">QTabWidget</code> con dos pestañas:</p>
+<ul>
+    <li>En la primera pestaña: un <code class="objeto">QListWidget</code> que liste algunos archivos ficticios (pon nombres como "archivo1.txt", "archivo2.txt", etc.) y un <code class="objeto">QPushButton</code> "Abrir". Cuando se seleccione un elemento de la lista y se pulse "Abrir", debe aparecer un <code class="objeto">QMessageBox</code> informativo que diga "Abriendo {nombre_archivo}" (ver sección de diálogos para <code class="objeto">QMessageBox</code>).</li>
+    <li>En la segunda pestaña: un <code class="objeto">QTableWidget</code> con 2 columnas: "Producto" y "Precio". Llena la tabla con 3 filas de ejemplos de productos y sus precios. Añade un <code class="objeto">QLabel</code> debajo (en el mismo layout) que muestre el precio total (suma de los precios de la tabla). Calcula esa suma en el código después de llenar la tabla y muestra el resultado. De esta forma practicas pestañas, lista, tabla y un poco de cálculo.</li>
+</ul>
+
+<!-- CAPÍTULO 7 -->
+<h2 id="cap7">7. Menús, barras de herramientas y diálogos</h2>
+<p>En aplicaciones de escritorio tradicionales, además de los elementos dentro de la ventana, es común tener un **menú** en la parte superior (con opciones desplegables) y/o una **barra de herramientas** con botones icónicos. También se usan mucho las **ventanas de diálogo** para interacciones secundarias (por ejemplo, abrir archivos, mostrar mensajes al usuario, solicitar confirmación, etc.).</p>
+
+<p>PyQt6, a través de <code class="objeto">QMainWindow</code> y los widgets correspondientes, facilita agregar menús, toolbars y diálogos modales.</p>
+
+<h3 id="cap7_1">7.1 Menú de aplicación y barras de herramientas</h3>
+
+<p><strong>QMainWindow:</strong> Hasta ahora hemos usado principalmente <code><code class="objeto">QWidget</code></code> como ventana. <code><code class="objeto">QMainWindow</code></code> es una clase que hereda de <code class="objeto">QWidget</code> pero provee una estructura lista para aplicaciones: tiene zonas específicas para **menú**, **barra de herramientas**, **barra de estado** y una área central para los contenidos principales. Muchas aplicaciones de escritorio se construyen extendiendo <code class="objeto">QMainWindow</code>.</p>
+
+<p>Las partes principales de <code class="objeto">QMainWindow</code>:</p>
+<ul>
+    <li><code><code class="propiedad">menuBar</code>()</code>: devuelve el <code class="objeto">QMenuBar</code> (barra de menú) donde puedes añadir menús desplegables.</li>
+    <li><code><code class="propiedad">statusBar</code>()</code>: devuelve <code class="objeto">QStatusBar</code>, para mostrar mensajes breves en la parte inferior.</li>
+    <li><code><code class="variable">toolBar</code></code>: puedes agregar <code class="objeto">QToolBar</code> con <code><code class="propiedad">addToolBar</code>("nombre")</code>.</li>
+</ul>
+
+<p>Para utilizarlo:</p>
+<ul>
+    <li>Puedes crear una clase que herede <code class="objeto">QMainWindow</code>.</li>
+    <li>En su <code>__init__</code>, después de <code>super().__init__()</code>, puedes crear menús y acciones.</li>
+</ul>
+
+<p><strong>Menú y QAction:</strong></p>
+<ul>
+    <li>Un menú (<code class="objeto">QMenu</code>) es una lista desplegable de comandos.</li>
+    <li>Cada opción en el menú es representada por una **QAction** (acción).</li>
+    <li>Las QActions encapsulan un texto, un icono opcional, un atajo de teclado opcional, y la señal <code><code class="propiedad">triggered</code></code> que se emite cuando la acción se elige.</li>
+    <li>Puedes crear acciones y añadirlas a menús y/o a toolbars.</li>
+</ul>
+
+<p><strong>Ejemplo: Crear una ventana con menú "Archivo" que tiene una opción "Salir".</strong></p>
+
+<pre><code class="language-python">import sys
+from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox, QWidget
+from PyQt6.QtGui import QAction, QIcon
+
+class VentanaPrincipal(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.<code class="propiedad">setWindowTitle</code>("Ejemplo Menú y ToolBar")
+        self.<code class="propiedad">resize</code>(400, 300)
+        # -------- Menú --------
+        # Obtener la barra de menú
+        barra_menu = self.<code class="propiedad">menuBar</code>()
+        menu_archivo = barra_menu.<code class="propiedad">addMenu</code>("Archivo")
+        menu_ayuda = barra_menu.<code class="propiedad">addMenu</code>("Ayuda")
+        # Crear acciones
+        accion_abrir = QAction(QIcon(), "Abrir archivo...", self)
+        accion_abrir.<code class="propiedad">setShortcut</code>("Ctrl+O")
+        accion_salir = QAction("Salir", self)
+        accion_salir.<code class="propiedad">setShortcut</code>("Ctrl+Q")
+        # Conectar las acciones a métodos
+        accion_abrir.<code class="propiedad">triggered</code>.<code class="propiedad">connect</code>(self.<code class="funcion">abrir_archivo</code>)
+        accion_salir.<code class="propiedad">triggered</code>.<code class="propiedad">connect</code>(self.<code class="propiedad">close</code>)  # cerrar la ventana
+        # Añadir acciones al menú Archivo
+        menu_archivo.<code class="propiedad">addAction</code>(accion_abrir)
+        menu_archivo.<code class="propiedad">addSeparator</code>()  # línea separadora
+        menu_archivo.<code class="propiedad">addAction</code>(accion_salir)
+        # Menú Ayuda con una acción AcercaDe
+        accion_acerca = QAction("Acerca de...", self)
+        accion_acerca.<code class="propiedad">triggered</code>.<code class="propiedad">connect</code>(self.<code class="funcion">mostrar_acerca</code>)
+        menu_ayuda.<code class="propiedad">addAction</code>(accion_acerca)
+        # -------- Toolbar --------
+        toolbar = self.<code class="propiedad">addToolBar</code>("BarraPrincipal")
+        toolbar.<code class="propiedad">addAction</code>(accion_abrir)
+        toolbar.<code class="propiedad">addAction</code>(accion_salir)
+        # Podemos añadir un separator en toolbar también
+        toolbar.<code class="propiedad">addSeparator</code>()
+        toolbar.<code class="propiedad">addAction</code>(accion_acerca)
+        # -------- Status bar --------
+        self.<code class="propiedad">statusBar</code>().<code class="propiedad">showMessage</code>("Listo")
+
+    def <span class="funcion">abrir_archivo</span>(self):
+        ruta, _ = QFileDialog.<code class="propiedad">getOpenFileName</code>(self, "Abrir archivo", "",
+                                              "Todos los archivos (*.*)")
+        if ruta:
+            self.<code class="propiedad">statusBar</code>().<code class="propiedad">showMessage</code>(f"Archivo abierto: {ruta}", 5000)
+            # Aquí cargarías el archivo, para este ejemplo solo mostramos mensaje
+
+    def <span class="funcion">mostrar_acerca</span>(self):
+        QMessageBox.<code class="propiedad">information</code>(self, "Acerca de",
+            "Manual PyQt6 - Ejemplo de menú 'Acerca de'.\nVersión 1.0")
+
+app = QApplication(sys.<code class="variable">argv</code>)
+ventana = VentanaPrincipal()
+ventana.<code class="propiedad">show</code>()
+app.<code class="propiedad">exec</code>()
+</code></pre>
+
+<p>Desglosemos lo que hicimos:</p>
+
+<ul>
+    <li>Creamos una clase <code>VentanaPrincipal(<code class="objeto">QMainWindow</code>)</code>. Usamos <code class="objeto">QMainWindow</code> para poder usar menuBar, etc.</li>
+    <li>Obtenemos la barra de menú con <code>self.<code class="propiedad">menuBar</code>()</code>. Luego añadimos menús desplegables con <code><code class="propiedad">addMenu</code>("Nombre")</code>. Creamos dos menús: "Archivo" y "Ayuda".</li>
+    <li>Creamos <code>QAction</code>s para las opciones: "Abrir archivo..." y "Salir" en Archivo, y "Acerca de..." en Ayuda. Para la acción Abrir, asignamos también un atajo de teclado Ctrl+O (muy común para Abrir). Para Salir, Ctrl+Q.</li>
+    <li>Conectamos <code>accion_abrir.<code class="propiedad">triggered</code></code> a un método <code><code class="funcion">abrir_archivo</code></code>, y <code>accion_salir.<code class="propiedad">triggered</code></code> a <code>self.<code class="propiedad">close</code></code> (que ya existe en <code class="objeto">QMainWindow</code>/<code class="objeto">QWidget</code> para cerrar la ventana). La acción Acerca la conectamos a <code><code class="funcion">mostrar_acerca</code></code>.</li>
+    <li>Añadimos las acciones al menú correspondiente con <code>menu_archivo.<code class="propiedad">addAction</code>(accion_abrir)</code> etc. También añadimos un separador visual entre Abrir y Salir.</li>
+    <li>Para la barra de herramientas: <code>self.<code class="propiedad">addToolBar</code>("BarraPrincipal")</code> crea una <code class="objeto">QToolBar</code> con un nombre interno "BarraPrincipal". Añadimos acciones a la toolbar con <code><code class="propiedad">addAction</code></code> igual. Notarás que usar la misma QAction hace que automáticamente use el mismo texto e icono (si tenían icono) en la toolbar. En la toolbar, a diferencia del menú, el texto puede aparecer como etiqueta del botón o solo icono. En nuestro caso no pusimos iconos a las acciones excepto Abrir (lo dejamos vacío <code><code class="objeto">QIcon</code>()</code> solo por demostración; idealmente pondrías un icono de carpeta por ejemplo). Podemos configurar <code>toolbar.<code class="propiedad">setToolButtonStyle</code>(<code class="objeto">Qt</code>.<code class="propiedad">ToolButtonStyle</code>.<code class="propiedad">ToolButtonTextUnderIcon</code>)</code> o similares si quisiéramos mostrar texto bajo iconos, etc.</li>
+    <li>Creamos un status bar con <code>self.<code class="propiedad">statusBar</code>()</code> y mostramos un mensaje "Listo". La barra de estado es útil para dar feedback breve. En <code><code class="funcion">abrir_archivo</code></code>, luego de abrir el diálogo, usamos <code><code class="propiedad">statusBar</code>().<code class="propiedad">showMessage</code>("...", 5000)</code> para mostrar "Archivo abierto: ruta" durante 5 segundos (el segundo parámetro es milisegundos para auto-borrar).</li>
+    <li><code><code class="funcion">abrir_archivo</code></code> usa <code><code class="objeto">QFileDialog</code>.<code class="propiedad">getOpenFileName</code></code> para abrir un diálogo del sistema de selección de archivos (ver próxima sección). Si se elige un archivo, simplemente muestra en la barra de estado la ruta.</li>
+    <li><code><code class="funcion">mostrar_acerca</code></code> lanza un <code class="objeto">QMessageBox</code> de información con un texto "Acerca de". (Más sobre <code class="objeto">QMessageBox</code> en siguiente apartado).</li>
+</ul>
+
+<p>Si ejecutas este código, tendrás una ventana con un menú Archivo (donde Abrir abrirá un diálogo de archivo, y Salir cierra, Ayuda->Acerca de muestra info), y una toolbar con botones correspondientess. También verás la barra de estado en la parte inferior mostrando "Listo" y cambiando según acciones.</p>
+
+<p>Este es un esqueleto típico de aplicación de escritorio.</p>
+
+<p><strong>Atajos de teclado:</strong> Como se vio, se pueden establecer en QAction (<code><code class="propiedad">setShortcut</code></code>). Otra forma es en los textos de menú usar <code>&</code> para mnemónicos (subrayado en menú). Por ejemplo, <code>menu_archivo = barra_menu.<code class="propiedad">addMenu</code>("&Archivo")</code>
+haría que al abrir la aplicación, si presionas Alt+A, se abre el menú Archivo. En las acciones, <code>QAction("Salir", self)</code> podríamos hacer <code>QAction("&Salir", self)</code> para Alt+S (en menú) o usar <code><code class="propiedad">setShortcut</code></code> para Ctrl+Q como hicimos (que es diferente, es global).</p>
+
+<h3 id="cap7_2">7.2 Diálogos comunes (QMessageBox, QFileDialog)</h3>
+
+<p><strong>QMessageBox:</strong> Es la forma sencilla de mostrar mensajes al usuario en un cuadro modal (que bloquea la ventana padre hasta que se cierra). Tiene métodos estáticos para distintas iconografías:</p>
+<ul>
+    <li><code><code class="objeto">QMessageBox</code>.<code class="propiedad">information</code>(parent, "Título", "Texto")</code> – mensaje informativo (icono azul i).</li>
+    <li><code><code class="objeto">QMessageBox</code>.<code class="propiedad">warning</code>(parent, "Título", "Texto")</code> – advertencia (triángulo amarillo).</li>
+    <li><code><code class="objeto">QMessageBox</code>.<code class="propiedad">critical</code>(parent, "Título", "Texto")</code> – error crítico (icono rojo).</li>
+    <li><code><code class="objeto">QMessageBox</code>.<code class="propiedad">question</code>(parent, "Título", "Texto", buttons=<code class="objeto">QMessageBox</code>.<code class="propiedad">Yes</code>|<code class="objeto">QMessageBox</code>.<code class="propiedad">No</code>)</code> – pregunta con botones personalizados (Yes/No por defecto, devuelve cuál se pulsó).</li>
+</ul>
+
+<p>También se puede instanciar un <code class="objeto">QMessageBox</code>, personalizar botones, etc., pero para empezar, los métodos estáticos son prácticos.</p>
+
+<p>Ejemplo de uso interactivo:</p>
+
+<pre><code class="language-python">ret = QMessageBox.<code class="propiedad">question</code>(self, "Confirmar", "¿Deseas salir sin guardar?",
+                           QMessageBox.<code class="propiedad">Yes</code> | QMessageBox.<code class="propiedad">Cancel</code>)
+if ret == QMessageBox.<code class="propiedad">Yes</code>:
+    self.<code class="propiedad">close</code>()
+</code></pre>
+
+<p>Esto mostrará un diálogo con "¿Deseas salir sin guardar?" y botones Sí y Cancelar. <code><code class="variable">ret</code></code> indicará qué botón se presionó (en este caso comparando con QMessageBox.<code class="propiedad">Yes</code>).</p>
+
+<p><strong>QFileDialog:</strong> Para abrir/guardar archivos o seleccionar directorios. Se suele usar métodos estáticos también:</p>
+<ul>
+    <li><code><code class="objeto">QFileDialog</code>.<code class="propiedad">getOpenFileName</code>(parent, "Título", "directorio_inicial", "Filtro")</code> – devuelve una tupla <code>(ruta, filtroElegido)</code>; si canceló, ruta será cadena vacía.</li>
+    <li><code><code class="objeto">QFileDialog</code>.<code class="propiedad">getSaveFileName</code>(...)</code> similar para guardar (muestra confirmación si existe).</li>
+    <li><code><code class="objeto">QFileDialog</code>.<code class="propiedad">getExistingDirectory</code>(...)</code> para elegir solo una carpeta.</li>
+</ul>
+
+<p>El filtro es una cadena del tipo <code>"Archivos de texto (*.txt);;Todos los archivos (*)"</code>, que permite filtrar extensiones en el diálogo.</p>
+
+<p>Ejemplo ya visto arriba en <code><code class="funcion">abrir_archivo</code></code>.</p>
+
+<p><strong>QColorDialog, QFontDialog:</strong> Para elegir colores y fuentes respectivamente. Ejemplo: <code><code class="variable">color</code> = QColorDialog.<code class="propiedad">getColor</code>(initialColor, self, "Elige un color")</code> devuelve un <code class="objeto">QColor</code> o inválido si canceló.</p>
+
+<p><strong>QInputDialog:</strong> Para pedir una entrada sencilla al usuario (una cadena, un número o una opción). Por ejemplo: <code><code class="variable">text</code>, ok = QInputDialog.<code class="propiedad">getText</code>(self, "Nombre", "Ingrese su nombre:")</code>. <code><code class="variable">ok</code></code> es True si no canceló. Similar <code><code class="propiedad">getInt</code></code>, <code><code class="propiedad">getDouble</code></code>, <code><code class="propiedad">getItem</code></code> (para elegir de lista desplegable).</p>
+
+<p><strong>QDialog en general:</strong> Todos los anteriores son diálogos prehechos. Podemos crear nuestros propios diálogos personalizados simplemente creando una instancia de <code class="objeto">QDialog</code> (o una clase heredada de <code class="objeto">QDialog</code>) y colocando widgets en ella (como si fuera una mini ventana). Luego se usa <code>dialog.<code class="propiedad">exec</code>()</code> para mostrarla en modo modal. Si el diálogo tiene botones OK/Cancel, se suelen conectar a <code>dialog.<code class="propiedad">accept</code>()</code> o <code>dialog.<code class="propiedad">reject</code>()</code>, y tras <code><code class="propiedad">exec</code>()</code>, se puede chequear <code>if dialog.<code class="propiedad">result</code>() == <code class="objeto">QDialog</code>.<code class="propiedad">Accepted</code>:</code>. Esto es útil para formularios pequeños. Qt Designer también puede diseñar diálogos.</p>
+
+<p>Pero para principiantes, saber usar <code class="objeto">QMessageBox</code> y <code class="objeto">QFileDialog</code> cubre muchísimas necesidades sin tener que diseñar un diálogo desde cero.</p>
+
+<p><strong>Ejercicio 10:</strong> Añade a la ventana del **Ejercicio 9** (pestaña con lista de archivos) la funcionalidad de que al hacer doble clic en un item de la lista también se abra el archivo (es decir, muestre el mismo mensaje "Abriendo X"). Puedes usar la señal <code><code class="propiedad">itemDoubleClicked</code></code> de <code class="objeto">QListWidget</code>. Además, en la pestaña de la tabla de productos, agrega un botón "Añadir Producto". Al pulsarlo, muestra un <code class="objeto">QInputDialog</code> que pida el nombre del producto y otro <code class="objeto">QInputDialog</code> para el precio (o podrías hacer un <code class="objeto">QDialog</code> custom si te animas). Con esos datos, inserta una nueva fila en la tabla (usar <code><code class="propiedad">insertRow</code></code>) y actualiza el total mostrado en el <code class="objeto">QLabel</code>. De esta manera practicas los diálogos de entrada y manipulación dinámica de la tabla.</p>
+
+<!-- CAPÍTULO 8 -->
+<h2 id="cap8">8. Archivos .ui y Qt Designer</h2>
+
+<h3 id="cap8_1">8.1 ¿Qué es Qt Designer?</h3>
+
+<p>En capítulos anteriores hemos creado interfaces **mediante código** (a mano usando Python). Si bien esto da mucho control, puede volverse tedioso cuando la interfaz es grande. Qt ofrece la herramienta **Qt Designer** para diseñar GUIs visualmente, colocando widgets en un formulario, configurando propiedades, etc., y guardando ese diseño en un archivo `.ui` (formato XML).</p>
+
+<p>Qt Designer es una aplicación independiente (o integrada en Qt Creator) que permite crear ventanas de forma visual. En Qt Designer, eliges un tipo de formulario (Ventana principal, Diálogo, Widget), luego arrastras widgets de una paleta, les ajustas propiedades (como texto, nombre, tamaño mínimo, etc.) en el panel de propiedades, y finalmente guardas el diseño como `.ui`.</p>
+
+<p>Ventajas:</p>
+<ul>
+    <li>Visualizas la interfaz en tiempo real.</li>
+    <li>Sin preocupar de sintaxis de código para disposición; todo mediante drag & drop.</li>
+    <li>Puedes rápidamente hacer cambios de layout, agregar widgets, etc., y probar la disposición.</li>
+</ul>
+
+<p>El archivo `.ui` resultante es básicamente un XML que describe los widgets, sus propiedades, layouts y conexiones de señales básicas hechas en Designer (aunque normalmente, la lógica de señales la implementamos en código).</p>
+<p> <a href="https://es.m.wikipedia.org/wiki/Archivo:Screenshot-qt-designer-qwebview.png">Figura 2: Interfaz de Qt Designer mostrando un formulario de ejemplo. A la izquierda la paleta de widgets disponibles (botones, campos, layouts, etc.), en el centro el formulario siendo diseñado (aquí una ventana con una barra de herramientas de navegador y un QWebView), a la derecha el editor de propiedades (donde se ajustan propiedades del widget seleccionado) y el inspector de objetos (jerarquía de widgets). Qt Designer permite construir la interfaz gráficamente y establecer propiedades como texto, nombres de objeto, alineaciones y layouts sin escribir código.</a></p>
+
+<p>*(En la imagen, Qt Designer exhibe una interfaz de ejemplo con varios componentes; no te preocupes si ves cosas que aún no usamos, es solo ilustrativo.)*</p>
+
+<h3 id="cap8_2">8.2 Diseñar interfaces gráficas con Qt Designer</h3>
+
+<p><strong>Creando un archivo .ui:</strong></p>
+<ol>
+    <li>Abre Qt Designer (con <code>pyqt6-tools designer</code> o desde tu instalación de Qt).</li>
+    <li>Selecciona el tipo de formulario. Por ejemplo, "Main Window" si quieres una ventana con menú (esto creará un <code class="objeto">QMainWindow</code> con su menubar y statusbar listos), o "Dialog" si es una ventana simple. También puedes elegir "Widget" para un formulario genérico.</li>
+    <li>Arrastra widgets desde la paleta a tu formulario. Organízalos. Aplica layouts: es importante después de colocar widgets seleccionar un contenedor (por ejemplo, el centralwidget en MainWindow) y aplicar un layout (botones en la toolbar de Qt Designer: Lay out horizontally, vertically, grid, form, etc.). Verás cómo Qt Designer anida layouts en widgets invisibles llamados "containers".</li>
+    <li>Ajusta propiedades en el panel derecho: por ejemplo, cambia el texto de botones, el título de la ventana (<code><code class="propiedad">windowTitle</code></code>), los nombres de objeto (<code><code class="propiedad">objectName</code></code>) de cada widget (esta es importante para identificarlos en el código). Qt Designer suele dar nombres automáticos (pushButton, lineEdit1, etc.), pero es bueno renombrarlos a algo significativo (p. ej., <code><code class="variable">btnAceptar</code></code>, <code><code class="variable">inputNombre</code></code>).</li>
+    <li>Puedes también promocionar widgets (avanzado, para custom widgets) y conectar señales a *slots* básicos (Qt Designer permite conectar por ejemplo clicked de un botón a <code class="propiedad">close</code>() de la ventana, sin código), pero para lógica personalizada es mejor hacerlo en Python.</li>
+    <li>Guarda el formulario, por ejemplo <code>mi_interfaz.ui</code>.</li>
+</ol>
+
+<p>Ahora tienes el diseño listo.</p>
+
+<h3 id="cap8_3">8.3 Cargar diseños .ui en PyQt6 (uic.loadUi)</h3>
+
+<p>La forma más directa de usar un .ui en PyQt6 es cargándolo en tiempo de ejecución con la función <code><code class="propiedad">uic.loadUi</code></code> proporcionada por PyQt6.</p>
+
+<p>Pasos:</p>
+<ul>
+    <li>Importa <code>from PyQt6 import uic</code>.</li>
+    <li>Si tienes una clase de ventana (<code class="objeto">QMainWindow</code> o <code class="objeto">QWidget</code>) creada, en su <code>__init__</code> llamas <code>uic.<code class="propiedad">loadUi</code>("mi_interfaz.ui", self)</code>.</li>
+</ul>
+
+<p>Esto cargará todos los widgets definidos en el .ui dentro de <code>self</code>. Es decir, <code>self</code> debe ser una instancia de la clase apropiada (por ejemplo, si el .ui es una MainWindow, tu clase debería heredar <code class="objeto">QMainWindow</code>). Al pasar <code>self</code> como segundo argumento, todos los widgets del diseño se instancian como atributos de <code>self</code> usando los nombres de objeto definidos en Qt Designer.</p>
+
+<p>Por ejemplo, si en Qt Designer pusiste un <code class="objeto">QPushButton</code> con objectName "btnAceptar", tras <code><code class="propiedad">loadUi</code></code>, podrías acceder a <code>self.<code class="variable">btnAceptar</code></code> directamente, como si lo hubieras creado a mano. ¡Muy útil!</p>
+
+<p><strong>Ejemplo:</strong></p>
+
+<p>Supongamos que diseñaste en Qt Designer un formulario de diálogo con un <code class="objeto">QLabel</code> (objectName "labelInfo") y dos botones, Aceptar (objectName "btnOk") y Cancelar (objectName "btnCancel"). Guardaste como <code>dialogo.ui</code>. Podrías usarlo así:</p>
+
+<pre><code class="language-python">from PyQt6 import uic
+from PyQt6.QtWidgets import QDialog, QLabel, QPushButton
+
+class MiDialogo(QDialog):
+    def __init__(self):
+        super().__init__()
+        uic.<code class="propiedad">loadUi</code>("dialogo.ui", self)
+        # Ahora los widgets del .ui son atributos:
+        self.<code class="variable">labelInfo</code>.<code class="propiedad">setText</code>("¿Seguro que desea salir?")
+        self.<code class="variable">btnOk</code>.<code class="propiedad">clicked</code>.<code class="propiedad">connect</code>(self.<code class="funcion">accion_ok</code>)
+        self.<code class="variable">btnCancel</code>.<code class="propiedad">clicked</code>.<code class="propiedad">connect</code>(self.<code class="propiedad">reject</code>)  # <code class="objeto">QDialog</code>.<code class="propiedad">reject</code> cierra el diálogo con resultado Cancel
+
+    def <span class="funcion">accion_ok</span>(self):
+        # hacer algo si es necesario
+        self.<code class="propiedad">accept</code>()  # cierra el diálogo indicando aceptación
+</code></pre>
+
+<p>Luego en otra parte, podrías hacer <code>dlg = MiDialogo(); if dlg.<code class="propiedad">exec</code>(): <code class="funcion">print</code>("OK fue presionado")</code>.</p>
+
+<p>Para ventanas principales, similar:</p>
+
+<pre><code class="language-python">from PyQt6 import uic
+from PyQt6.QtWidgets import QMainWindow, QPushButton
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.<code class="propiedad">loadUi</code>("ventana_principal.ui", self)
+        # Supongamos ventana_principal.ui tenía un menú o botones con nombres:
+        self.<code class="variable">botonCalcular</code>.<code class="propiedad">clicked</code>.<code class="propiedad">connect</code>(self.<code class="funcion">calcular</code>)
+    def <span class="funcion">calcular</span>(self):
+        # lo que sea
+        ...
+</code></pre>
+
+<p><strong>Ventajas de loadUi:</strong> rapidez de desarrollo, mantener separación diseño-lógica, fácil de iterar cambios de UI sin tocar código.</p>
+
+<p><strong>Desventajas:</strong> dependes del archivo .ui en tiempo de ejecución (debes distribuirlo junto a tu app), y es ligeramente más lento al iniciar (pues parsea XML). Pero para la mayoría de casos, está bien.</p>
+
+<h3 id="cap8_4">8.4 Convertir diseños .ui a código Python (pyuic6)</h3>
+
+<p>Otra forma es compilar el .ui a código Python mediante la herramienta <code>pyuic6</code> (instalada con PyQt6). Esto genera un archivo .py que contiene una clase (usualmente llamada Ui_NombreDelFormulario) con un método <code><code class="propiedad">setupUi</code>(self, MainWindow)</code> que construye la interfaz en un objeto dado.</p>
+
+<p>Uso:</p>
+<pre><code class="language-bash">pyuic6 -o salida.py entrada.ui</code></pre>
+<p>Por ejemplo, <code>pyuic6 -o ventana_principal_ui.py ventana_principal.ui</code>.</p>
+
+<p>Esto creará <code>ventana_principal_ui.py</code>. Dentro habrá algo como:</p>
+
+<pre><code class="language-python">class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(400,300)
+        self.centralwidget = QWidget(MainWindow)
+        ...
+        self.botonCalcular = QPushButton(self.centralwidget)
+        self.botonCalcular.setObjectName("botonCalcular")
+        ...
+        self.retranslateUi(MainWindow)
+        QMetaObject.connectSlotsByName(MainWindow)
+</code></pre>
+
+<p>Para usarlo, típicamente harías:</p>
+
+<pre><code class="language-python">from ventana_principal_ui import Ui_MainWindow
+from PyQt6.QtWidgets import QMainWindow, QPushButton
+
+class MainWindow(QMainWindow, Ui_MainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)  # método proporcionado por Ui_MainWindow
+        # Ahora igual que antes, podemos conectar señales:
+        self.botonCalcular.clicked.connect(self.calcular)
+    ...
+</code></pre>
+
+<p>Aquí se usa herencia múltiple por conveniencia (heredando de Ui_MainWindow para tener sus atributos), o alternativamente podrías no heredar de Ui_MainWindow y en su lugar crear instancia:</p>
+<pre><code class="language-python">self.ui = Ui_MainWindow()
+self.ui.setupUi(self)
+self.ui.botonCalcular.clicked.connect(...).
+</code></pre>
+<p>Ambos enfoques son válidos.</p>
+
+<p><strong>Ventajas de pyuic6:</strong> No necesitas distribuir el .ui (ya está en Python), quizás arranca un pelín más rápido ya que no parsea XML al vuelo.</p>
+
+<p><strong>Desventajas:</strong> Debes ejecutar pyuic6 cada vez que cambies el .ui para regenerar el código. Y no editar ese código generado manualmente, porque si regeneras perderías cambios.</p>
+
+<p>En proyectos grandes, algunos prefieren compilar UI a Python, otros cargarlos dinámicamente; es cuestión de preferencia.</p>
+
+<p>Para iniciar, <code>uic.<code class="propiedad">loadUi</code></code> suele ser más directo, evitando pasos extra.</p>
+
+<p><strong>Integrando Qt Designer en el flujo:</strong> Puedes diseñar la interfaz principal, diálogos adicionales, etc., con Qt Designer y luego en tu código Python cargarlos. Esto agiliza crear cosas como un formulario con muchos campos.</p>
+
+<p><strong>Recuerda:</strong> Tras cargar la UI, debes conectar las señales en tu código Python y escribir la lógica. Qt Designer no sabe de la lógica, solo del layout y propiedades estáticas.</p>
+
+<p>### Ejemplo completo combinando todo</p>
+
+<p>Para fijar ideas, imaginemos un pequeño programa "Contactos" donde diseñamos una interfaz con Qt Designer que tiene una <code class="objeto">QTableWidget</code> para lista de contactos y unos botones de "Añadir", "Eliminar", etc. Luego en Python la cargamos y escribimos la lógica de añadir/eliminar. Sería demasiado código presentarlo entero aquí, pero el flujo sería:</p>
+<ul>
+    <li>Diseñas <code>contactos.ui</code> con un <code class="objeto">QMainWindow</code>: central widget con <code class="objeto">QTableWidget</code> y botones (puedes usar layouts).</li>
+    <li>En Python:
+    <pre><code class="language-python">class ContactosApp(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi("contactos.ui", self)
+        # conectar señales
+        self.btnAdd.clicked.connect(self.add_contact)
+        self.btnDelete.clicked.connect(self.del_contact)
+        ...
+    def add_contact(self):
+        nombre = self.inputNombre.text()
+        # añadir a tabla...
+</code></pre>
+    etc.</li>
+</ul>
+
+<p>Esto demuestra cómo se usa en la práctica.</p>
+
+<p><strong>Ejercicio 11:</strong> Usando Qt Designer, crea un formulario (puede ser <code class="objeto">QMainWindow</code> o <code class="objeto">QWidget</code>) que tenga:</p>
+<ul>
+    <li>Un <code class="objeto">QLabel</code> con el texto "Calculadora de suma".</li>
+    <li>Dos <code class="objeto">QLineEdit</code> para ingresar números (llámalos, por ejemplo, <code><code class="variable">input1</code></code> y <code><code class="variable">input2</code></code>).</li>
+    <li>Un <code class="objeto">QPushButton</code> "Calcular".</li>
+    <li>Un <code class="objeto">QLabel</code> para mostrar el resultado (inicialmente vacío, objectName <code><code class="variable">labelResultado</code></code>).</li>
+</ul>
+<p>Organiza estos widgets ordenadamente usando layouts (por ejemplo, un formulario para los inputs etiquetados, o un grid).</p>
+<p>Guarda el diseño como <code>suma.ui</code>. Luego, escribe un script Python que cargue <code>suma.ui</code> (con uic.<code class="propiedad">loadUi</code>) en una clase <code>CalcSuma</code> que herede <code class="objeto">QWidget</code>, conecte el botón a un método que:</p>
+<ul>
+    <li>Lee los valores de <code><code class="variable">input1</code></code> y <code><code class="variable">input2</code></code> (tip: usar <code>.<code class="propiedad">text</code>()</code> y luego <code><code class="funcion">int</code>()</code> o <code><code class="funcion">float</code>()</code> para convertir, cuidando excepciones si quieres).</li>
+    <li>Calcula la suma y pone el resultado en <code><code class="variable">labelResultado</code></code> usando <code><code class="propiedad">setText</code></code> (convierte el número a str).</li>
+    <li>Maneja que si alguno de los campos está vacío o no es número válido, muestre "Error" en <code><code class="variable">labelResultado</code></code> o use un <code class="objeto">QMessageBox</code> de advertencia.</li>
+</ul>
+<p>Prueba la aplicación. Este ejercicio integra Qt Designer (diseño) con PyQt (lógica).</p>
+
+<!-- CAPÍTULO 9 -->
+<h2 id="cap9">9. Conclusión y pasos siguientes</h2>
+
+<p>¡Enhorabuena! Hemos cubierto un amplio panorama de PyQt6, desde los fundamentos hasta aspectos más avanzados. Ahora tienes los conocimientos para:</p>
+
+<ul>
+    <li>Configurar una aplicación PyQt6 e iniciar el bucle de eventos.</li>
+    <li>Crear ventanas, ya sea programáticamente o cargando diseños de Qt Designer.</li>
+    <li>Usar una variedad de widgets básicos (etiquetas, botones, campos de texto, listas, combos, etc.) y controlarlos mediante sus métodos y propiedades.</li>
+    <li>Organizar los widgets en la interfaz usando layouts para lograr diseños flexibles.</li>
+    <li>Conectar señales (eventos) de los widgets a funciones (slots) para implementar la lógica de la aplicación.</li>
+    <li>Incorporar elementos de aplicaciones de escritorio completas: menús, barras de herramientas, barras de estado.</li>
+    <li>Utilizar diálogos estándar para interacciones comunes (mensajes, apertura de archivos, entradas simples).</li>
+    <li>Aprovechar Qt Designer para acelerar el diseño de la interfaz y luego integrarlo con código Python.</li>
+</ul>
+
+<p>Como principiante, has aprendido a usar PyQt6 de manera efectiva con ejemplos claros. A partir de aquí, **la práctica y experimentación** son clave para afianzar y ampliar lo aprendido. Te sugerimos algunos desafíos finales:</p>
+
+<ul>
+    <li>Toma una aplicación sencilla que uses a diario e intenta replicar su interfaz y algo de funcionalidad con PyQt6. Por ejemplo, un pequeño editor de texto, un gestor de tareas, una calculadora mejorada, etc.</li>
+    <li>Explora más widgets no cubiertos en detalle aquí (como <code class="objeto">QSlider</code>, <code class="objeto">QProgressBar</code>, <code class="objeto">QCalendarWidget</code>) integrándolos en una mini aplicación.</li>
+    <li>Intenta hacer un uso creativo de señales: por ejemplo, combinar <code class="objeto">QTimer</code> con la interfaz para hacer una animación sencilla o un reloj en tiempo real.</li>
+    <li>Lee la documentación oficial de PyQt6/Qt6 para profundizar en temas como dibujo personalizado (<code class="objeto">QPainter</code>), multihilo (<code class="objeto">QThread</code>), modelos y vistas (para tablas más complejas), etc., cuando lo necesites.</li>
+    <li>Repite los ejercicios proporcionados sin mirar las respuestas y luego compara con las soluciones para ver otras formas de lograr lo mismo.</li>
+</ul>
+
+<p>PyQt6 es una herramienta poderosa; con este manual completo ya cuentas con las bases sólidas. A medida que construyas proyectos, te sentirás más cómodo y podrás crear interfaces gráficas ricas en Python.</p>
+
+<p>¡Mucha suerte y que disfrutes programando con PyQt6!</p>
+
+<!-- CAPÍTULO 10 -->
+<h2 id="cap10">10. Temas avanzados y buenas prácticas</h2>
+
+<h3 id="cap10_1">10.1 Uso de hilos con QThread</h3>
+<pre><code class="language-python">from PyQt6.QtCore import QThread, pyqtSignal
+
+class HiloLargo(QThread):
+    progreso = pyqtSignal(int)
+
+    def run(self):
+        for i in range(101):
+            import time; time.sleep(0.1)
+            self.progreso.emit(i)</code></pre>
+<p>Conectamos la señal <code>progreso</code> a un slot en el hilo principal para actualizar, por ejemplo, un <code>QProgressBar</code>.</p>
+<p>Por defecto, todas las operaciones en PyQt6 ocurren en el hilo principal (también llamado hilo de la GUI). Si realizas una tarea muy pesada (por ejemplo, cálculo intensivo, espera de red, procesamiento de archivos grandes) en este hilo principal, la interfaz gráfica se congelará hasta que termine la tarea, lo cual ofrece una mala experiencia al usuario. La solución es mover las tareas pesadas a hilos secundarios (<em>threads</em>) para que el hilo principal siga respondiendo a la GUI.</p>
+<p>Qt ofrece la clase <code><code class="objeto">QThread</code></code> para crear nuevos hilos. Hay principalmente dos formas de usarla:</p>
+<ul>
+    <li><strong>Subclasificar QThread:</strong> Crear una clase que herede de <code class="objeto">QThread</code> y sobreescribir su método <code><code class="propiedad">run</code>()</code> con el código a ejecutar en segundo plano. Luego instancias la clase y llamas <code>mi_hilo.<code class="propiedad">start</code>()</code> para comenzar.</li>
+    <li><strong>Usar objetos de trabajo (<em>worker objects</em>):</strong> Crear una clase QObject con métodos que realizan la tarea, instanciarla y mover ese objeto a un <code class="objeto">QThread</code> existente usando <code>obj.<code class="propiedad">moveToThread</code>(thread)</code>. Luego inicias el thread y desde el hilo principal emites una señal que conecte con un slot del objeto para iniciar la tarea. Este método es un poco más avanzado pero separa la lógica del hilo en un objeto distinto.</li>
+</ul>
+<p>Para simplicidad, veamos un ejemplo breve de subclasificación de <code class="objeto">QThread</code>:</p>
+<pre><code class="language-python">class HiloLargo(QThread):
+    progreso = pyqtSignal(int)  # señal personalizada para emitir progreso (0-100)
+
+    def run(self):
+        for i in range(101):
+            # ... aquí iría código pesado, nosotros simulamos con sleep
+            import time; time.sleep(0.1)
+            self.progreso.emit(i)  # emitir progreso
+        # Al salir de run, el hilo terminará</code></pre>
+<p>Este <code>HiloLargo</code> emite una señal <code>progreso</code> con un entero de 0 a 100 simulando una tarea que avanza. Podemos usarlo así en nuestra aplicación principal:</p>
+<pre><code class="language-python">hilo = HiloLargo()
+hilo.progreso.connect(actualizar_barra)  # actualizar_barra es una función que, por ejemplo, hace barra_progreso.setValue(valor)
+hilo.finished.connect(tarea_completada)  # opcional, para saber cuándo acaba
+hilo.start()  # inicia el hilo (ejecuta run() en segundo plano)</code></pre>
+<p>Aquí, <code>actualizar_barra</code> podría ser un slot que toma un entero y lo asigna a un <code class="objeto">QProgressBar</code> en la interfaz. Notar que <code>hilo.finished</code> es una señal integrada de <code class="objeto">QThread</code> que se emite cuando <code><code class="propiedad">run</code>()</code> termina. Conectamos a <code>tarea_completada</code> quizás para habilitar botones o notificar al usuario que terminó la tarea. Lo importante es que la tarea en run() (simulada con sleep en este caso) ocurre en otro hilo, por lo que la interfaz puede seguir operando (el usuario podría mover la ventana, cancelar, etc. en una implementación más completa).</p>
+<p>Una recomendación crucial: **nunca interactuar directamente con widgets de la GUI desde un hilo secundario**. Todas las actualizaciones de interfaz deben hacerse en el hilo principal. Por eso en el ejemplo emitimos una señal <code>progreso</code> y la conectamos a un slot en el hilo principal que actualiza la barra; la señal automáticamente traspasa la ejecución al hilo apropiado (que es donde vive el receptor, en este caso el widget). Este mecanismo se encarga de la sincronización de hilos internamente.</p>
+<p>Además de <code class="objeto">QThread</code> manual, Qt tiene <code><code class="objeto">QThreadPool</code></code> y <code><code class="objeto">QRunnable</code></code> que simplifican ejecutar tareas sencillas en segundo plano sin crear explícitamente clases <code class="objeto">QThread</code>, pero para principiantes, entender <code class="objeto">QThread</code> es un buen primer paso para trabajos en paralelo en PyQt.</p>
+
+<h3 id="cap10_2">10.2 Aplicaciones modulares y empaquetado</h3>
+<p>Se recomienda separar la lógica de la interfaz, dividir la aplicación en varios módulos y utilizar herramientas como <strong>PyInstaller</strong> para generar ejecutables.</p>
+<p>A medida que tu aplicación crece, se vuelve importante mantener un código organizado. Algunas buenas prácticas para lograr una aplicación modular y mantenible en PyQt6 son:</p>
+<ul>
+    <li><strong>Separar la lógica de la interfaz:</strong> Intenta que tus clases de interfaz (ventanas, diálogos) se encarguen principalmente de presentar datos y capturar eventos, delegando la lógica de negocio o procesamiento a otras clases o funciones. Por ejemplo, si tu aplicación maneja un listado de contactos, quizás tengas una clase <code>GestorContactos</code> (independiente de Qt) que maneja agregar/editar/eliminar contactos, y tu ventana Qt solo llama a ese gestor y luego actualiza la vista.</li>
+    <li><strong>Dividir la interfaz en componentes:</strong> Si la ventana principal se vuelve muy cargada, considera dividir en widgets personalizados. Por ejemplo, puedes crear un widget personalizado para la sección de configuración, otro para la sección de vista de datos, etc., y luego componerlos en la ventana principal. Esto se facilita creando clases que heredan de <code><code class="objeto">QWidget</code></code> o <code class="objeto">QFrame</code> para encapsular subinterfaces.</li>
+    <li><strong>Usar múltiples archivos Python:</strong> No dudes en repartir el código en varios módulos .py. Por ejemplo, un archivo para la interfaz principal (<code>main_window.py</code>), otro para los diálogos personalizados (<code>dialogs.py</code>), otro para lógica ( <code>logic.py</code> ). Luego importas y usas. Esto evita un único archivo gigante, facilitando la lectura y mantenimiento.</li>
+    <li><strong>Reutilizar .ui con herencia:</strong> Si usas Qt Designer, una técnica común es crear una clase Python que hereda de la clase generada por pyuic. Por ejemplo, si pyuic te genera <code>Ui_MainWindow</code>, tú creas <code>MainWindow(<code class="objeto">QMainWindow</code>, Ui_MainWindow)</code> y en el constructor llamas <code>self.<code class="propiedad">setupUi</code>(self)</code>. Así combinas el diseño con tu lógica en una subclase sin modificar el código generado automáticamente.</li>
+    <li><strong>Señales personalizadas para comunicación:</strong> En una aplicación grande, podrías definir tus propias señales (como hicimos con <code>progreso</code> en <code class="objeto">QThread</code>) para que diferentes partes de la aplicación se comuniquen sin depender directamente unas de otras. Por ejemplo, una señal <code>datosActualizados</code> en tu gestor de datos que las interfaces escuchen para refrescar vistas cuando cambie algo.</li>
+</ul>
+<p>Siguiendo estos consejos, tu aplicación será más fácil de ampliar y depurar, ya que cada parte cumple una función clara. Qt es bastante flexible para soportar este enfoque modular.</p>
+
+<h3 id="cap10_3">10.3 Empaquetado y distribución de aplicaciones</h3>
+<p>Después de desarrollar tu aplicación PyQt6, querrás distribuirla a otros usuarios, incluso que no tengan Python instalado. Para ello, existen herramientas que convierten tu programa en un ejecutable autónomo con todo incluido. La más popular es <strong>PyInstaller</strong>.</p>
+<p>PyInstaller analiza tu script Python y empaqueta el intérprete de Python junto con todos los módulos usados (incluyendo PyQt6 y las bibliotecas Qt necesarias) en un solo directorio o archivo ejecutable. Instrucciones básicas:</p>
+<ul>
+    <li>Instala PyInstaller: <code>pip install pyinstaller</code>.</li>
+    <li>En una terminal, ve al directorio de tu script principal y ejecuta: <code>pyinstaller --onefile --windowed mi_app.py</code>.</li>
+    <li>La opción <code>--onefile</code> crea un único ejecutable (en lugar de una carpeta con múltiples archivos). <code>--windowed</code> (o <code>--noconsole</code>) hace que en Windows no se abra una consola de terminal junto con tu app (porque es gráfica).</li>
+    <li>PyInstaller generará una carpeta <code>dist</code>; dentro estará <code>mi_app.exe</code> (en Windows) o simplemente un ejecutable <code>mi_app</code> en macOS/Linux.</li>
+    <li>Puedes tomar ese ejecutable y distribuirlo. Ten en cuenta que puede ser de decenas de MB, pues incluye Python y Qt.</li>
+</ul>
+<pre><code class="language-python"># Ejemplo de uso de PyInstaller:
+# pip install pyinstaller
+# pyinstaller --onefile --windowed mi_app.py</code></pre>
+<p>Otra herramienta es <strong>Nuitka</strong> (compila a C++), o <strong>cx_Freeze</strong>, pero PyInstaller suele ser la más sencilla. Para distribuciones más profesionales, en Windows podrías crear un instalador (usando Inno Setup, por ejemplo) que incluya el ejecutable y accesos directos.</p>
+<p>No olvides revisar la cuestión de la licencia si distribuyes tu app. Si usas PyQt6 (GPL), tu aplicación tendría que ser GPL (código abierto) a menos que adquieras una licencia comercial o uses PySide6 (LGPL). Este detalle legal es avanzado, pero es importante si planeas compartir tu app ampliamente.</p>
+<p>Finalmente, prueba tu aplicación empaquetada en diferentes sistemas. Asegúrate de incluir instrucciones de instalación para el usuario final si hace falta (por ejemplo, "ejecuta este .exe" o "en Mac, arrastra la app a Aplicaciones"). Una aplicación PyQt correctamente empaquetada lucirá y funcionará como cualquier otro programa nativo en la plataforma de destino.</p>
+<p><strong>Conclusión:</strong> Hemos cubierto los principales aspectos de PyQt6, desde los fundamentos hasta temas más avanzados. Ahora deberías tener un panorama completo para empezar a crear tus propias aplicaciones de escritorio con Python y Qt. Recuerda que la documentación oficial de Qt y PyQt6 es un recurso valioso para profundizar en cada tema, y la práctica constante de armar interfaces y probar features te ayudará a dominar este framework. ¡Éxito en tus proyectos con PyQt6!</p>
+
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manual de Introducción a la Programación en Python</title>
+<link href="style.css" rel="stylesheet"/>
+<style>
+        /* Estilos CSS para diseño oscuro y elegante */
+        body {
+            background-color: #1e1e1e;  /* Fondo oscuro */
+            color: #e0e0e0;             /* Texto en gris claro para no cansar la vista */
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Estilos para encabezados */
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffa500;  /* Un tono naranja para los encabezados, destacando en el fondo oscuro */
+            margin-top: 1em;
+        }
+
+        /* Distintos tamaños y decoraciones para jerarquía de encabezados */
+        h1 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 0.5em;
+            border-bottom: 2px solid #444;
+            padding-bottom: 0.3em;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 2em;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.2em;
+        }
+        h3 {
+            font-size: 1.4em;
+            margin-top: 1.5em;
+            color: #ffd280;  /* un naranja más claro para sub-encabezados */
+        }
+
+        /* Párrafos y texto */
+        p {
+            margin: 0.8em 0;
+        }
+
+        /* Listas */
+        ul, ol {
+            margin: 0.8em 0 0.8em 1.2em;
+        }
+        ul li {
+            margin: 0.4em 0;
+        }
+        ul li ul {
+            margin: 0.5em 0 0.5em 1.2em;
+        }
+        ul li ul li {
+            list-style-type: circle;
+        }
+
+        /* Citas en bloque (si las hubiera) */
+        blockquote {
+            border-left: 4px solid #555;
+            margin: 1em 0;
+            padding: 0.5em 1em;
+            color: #ccc;
+            font-style: italic;
+            background-color: #2a2a2a;
+        }
+
+        /* Código embebido en el texto */
+        code {
+            background-color: #333;
+            color: #e0e0e0;
+            font-family: Consolas, Courier New, monospace;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        /* Bloques de código preformateado */
+        pre {
+            background-color: #272727;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+        pre code {
+            color: #e0e0e0;
+            background: none;
+            font-family: Consolas, Courier New, monospace;
+            font-size: 0.95em;
+        }
+
+        /* Estilos para comentarios dentro del código (simple enfoque, asumiendo comentarios empiezan con #) */
+        /* No podemos seleccionar comentarios directamente con CSS, pero podemos optar por estilizar líneas que contengan '#' de forma específica con JavaScript o una librería de resaltado.
+        En este CSS básico, simplemente pondremos los comentarios manualmente en un color diferente dentro del código si fuera posible. (Esta parte es informativa; para un resaltado real se usaría un plugin o <span class="comment"> en HTML). */
+
+        /* Tablas (si se incluyen en contenido) */
+        table {
+            border-collapse: collapse;
+            margin: 1em 0;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid #555;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+        }
+
+        /* Imágenes */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        figure {
+            text-align: center;
+            margin: 1.5em 0;
+        }
+        figcaption {
+            color: #ccc;
+            font-size: 0.9em;
+            margin-top: 0.5em;
+        }
+
+        /* Enlaces */
+        a {
+            color: #86cafc;
+        }
+        a:hover {
+            color: #ffd280;
+        }
+
+        /* Footer o nota (si fuese necesario) */
+        footer {
+            text-align: center;
+            margin: 2em 0 1em;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        /* Estilos para elementos de código */
+        .funcion {
+            color: #4e98e2;  /* azul */
+            font-family: Consolas, Courier New, monospace;
+        }
+
+        .objeto {
+            color: #4caf50;  /* verde */
+            font-family: Consolas, Courier New, monospace;
+        }
+
+        .propiedad {
+            color: #ff9800;  /* naranja */
+            font-family: Consolas, Courier New, monospace;
+        }
+
+        .variable {
+            color: #9c27b0;  /* morado */
+            font-family: Consolas, Courier New, monospace;
+        }
+
+        /* Modificar los estilos de código para incluir colores sintácticos */
+        pre code {
+            color: #e0e0e0;
+            background: none;
+            font-family: Consolas, Courier New, monospace;
+            font-size: 0.95em;
+        }
+
+        pre code .funcion {
+            color: #3df364;  /* azul */
+        }
+
+        pre code .objeto {
+            color: #ff39b3;  /* verde */
+        }
+
+        pre code .propiedad {
+            color: #ff9800;  /* naranja */
+        }
+
+        pre code .variable {
+            color: #4cecdf;  /* morado */
+        }
+
+        /* Estilo para inline code con colores */
+        code.funcion, code.objeto, code.propiedad, code.variable {
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+<style>
+.funcion { color: #3df364; font-weight: bold; }
+.variable { color: #4cecdf; }
+.propiedad { color: #ff9800; }
+.objeto { color: #ff39b3; }
+</style></head>
+<body>
+<!-- Logo de Python -->
+<div style="text-align: center; margin: 20px 0;">
+<img alt="Logo de Python" src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png"/>
+</div>
+<h1>Manual de Introducción a la Programación en Python</h1>
+<p>Bienvenido a este manual de introducción a Python, un lenguaje de programación sencillo y poderoso. Python se caracteriza por su sintaxis clara y legible, lo que lo convierte en una excelente opción para principiantes. A lo largo de este documento, cubriremos los conceptos básicos de programación en Python con explicaciones teóricas y ejemplos de código comentados paso a paso. Aprenderás sobre los tipos de variables y estructuras de datos, operadores, estructuras de control de flujo, funciones, manejo de archivos, manejo de excepciones, programación orientada a objetos y el uso de algunas librerías estándar. ¡Comencemos!</p>
+<hr/>
+<!-- Tipos de variables y estructuras de datos -->
+<h2>Tipos de variables y estructuras de datos en Python</h2>
+<p>En Python, no es necesario declarar el tipo de una variable antes de usarla; el tipo se infiere automáticamente cuando asignamos un valor. Esto se debe a que Python es un lenguaje de <strong>tipado dinámico</strong>. A continuación, se describen los tipos de datos básicos y las estructuras de datos más usadas en Python:</p>
+<ul>
+<li><strong>Números enteros (int):</strong> Representan números enteros, por ejemplo <code>3</code>, <code>-15</code>.</li>
+<li><strong>Números de punto flotante (float):</strong> Representan números con decimales, por ejemplo <code>3.14</code>, <code>-0.5</code>.</li>
+<li><strong>Cadenas de texto (str):</strong> Secuencias de caracteres (texto). Se delimitan con comillas simples o dobles, por ejemplo <code>"Hola"</code> o <code>'Python'</code>.</li>
+<li><strong>Booleanos (bool):</strong> Valores lógicos <code>True</code> o <code>False</code> (verdadero o falso), usados para representar verdad/falsedad.</li>
+<li><strong>Listas (list):</strong> Colecciones ordenadas y mutables de elementos. Se definen con corchetes <code>[]</code>. Pueden contener elementos de cualquier tipo y cambiar de tamaño dinámicamente.</li>
+<li><strong>Tuplas (tuple):</strong> Colecciones ordenadas de elementos <em>inmutables</em> (no se pueden modificar una vez creadas). Se definen con paréntesis <code>()</code> o simplemente separando elementos por comas.</li>
+<li><strong>Conjuntos (set):</strong> Colecciones desordenadas de elementos únicos (sin duplicados). Se definen con llaves <code>{}</code> (similar a un conjunto matemático).</li>
+<li><strong>Diccionarios (dict):</strong> Estructuras de mapeo que almacenan pares <em>clave: valor</em>. Se definen con llaves <code>{}</code>, por ejemplo <code>{"nombre": "Ana", "edad": 25}</code>. Permiten acceder al valor mediante su clave.</li>
+<li><strong>None:</strong> Un tipo especial que indica la ausencia de valor (similar a “nulo”). La palabra clave <code><code class="variable">None</code></code> se usa para denotar que una variable no tiene ningún valor asignado.</li>
+</ul>
+<p>Veamos algunos ejemplos de variables de distintos tipos y cómo mostrarlas por pantalla usando <code><code class="funcion">print</code>()</code>:</p>
+<pre><code class="language-python">
+# Ejemplo de variables de diferentes tipos en Python
+numero_entero = 42             # un número entero (<code class="variable">int</code>)
+numero_flotante = 3.14159      # un número de punto flotante (<code class="variable">float</code>)
+texto = "Hola, Python!"        # una cadena de texto (<code class="variable">str</code>)
+verdadero = True               # un valor booleano True
+falso = False                  # un valor booleano False
+
+<code class="funcion">print</code>("Entero:", numero_entero)
+<code class="funcion">print</code>("Flotante:", numero_flotante)
+<code class="funcion">print</code>("Texto:", texto)
+<code class="funcion">print</code>("Booleanos:", verdadero, "y", falso)
+    </code></pre>
+<p>Al ejecutar el código anterior, Python imprimirá los valores almacenados en las variables. Observa que usamos la función <code><code class="funcion">print</code>()</code> para mostrar múltiples elementos separados por comas; Python insertará espacios automáticamente entre ellos en la salida.</p>
+<p>Las estructuras de datos como listas, tuplas, conjuntos y diccionarios permiten almacenar múltiples valores agrupados. Veamos un ejemplo de estas estructuras y cómo acceder a sus elementos:</p>
+<pre><code class="language-python">
+# Ejemplo de estructuras de datos en Python
+mi_lista = [1, 2, 3, 4]                 # lista de enteros
+mi_lista.<code class="propiedad">append</code>(5)                      # agregamos un elemento al final de la lista
+<code class="funcion">print</code>("Lista completa:", mi_lista)
+<code class="funcion">print</code>("Primer elemento de la lista:", mi_lista[0])   # accediendo al primer elemento (índice 0)
+
+mi_tupla = ("uno", "dos", "tres")       # tupla de cadenas (inmutable)
+<code class="funcion">print</code>("Tupla completa:", mi_tupla)
+<code class="funcion">print</code>("Elemento en posición 1 de la tupla:", mi_tupla[1])  # accediendo al segundo elemento
+
+mi_conjunto = {"a", "b", "c"}           # conjunto de caracteres
+mi_conjunto.<code class="propiedad">add</code>("d")                    # agregamos un elemento al conjunto
+<code class="funcion">print</code>("Conjunto:", mi_conjunto)         # los conjuntos no garantizan un orden específico
+
+mi_diccionario = {"nombre": "Ana", "edad": 25}  # diccionario con dos pares clave-valor
+<code class="funcion">print</code>("Diccionario completo:", mi_diccionario)
+<code class="funcion">print</code>("Valor asociado a la clave 'nombre':", mi_diccionario["nombre"])
+    </code></pre>
+<p>En este ejemplo, usamos métodos como <code>append()</code> para listas (que agrega un elemento al final) y <code>add()</code> para conjuntos. También accedemos a elementos por índice en listas y tuplas (recordando que comienzan en 0) y por clave en diccionarios.</p>
+<hr/>
+<!-- Operadores y expresiones -->
+<h2>Operadores y expresiones</h2>
+<p>Los operadores nos permiten realizar operaciones con los valores (operandos). Podemos combinarlos para formar <em>expresiones</em> que Python evaluará. A continuación, enumeramos los principales tipos de operadores en Python:</p>
+<ul>
+<li><strong>Operadores aritméticos:</strong> sirven para realizar cálculos matemáticos básicos:
+            <ul>
+<li><code>+</code> (suma)</li>
+<li><code>-</code> (resta)</li>
+<li><code>*</code> (multiplicación)</li>
+<li><code>/</code> (división) – devuelve un flotante</li>
+<li><code>//</code> (división entera) – cociente de la división descartando el residuo</li>
+<li><code>%</code> (módulo) – residuo de la división entera</li>
+<li><code>**</code> (exponente) – potencia; por ejemplo <code>2 ** 3</code> es 8.</li>
+</ul>
+</li>
+<li><strong>Operadores de asignación:</strong> el operador <code>=</code> asigna un valor a una variable. Además, existen operadores compuestos como <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, etc., que combinan asignación con una operación aritmética (por ejemplo, <code>x += 5</code> es equivalente a <code>x = x + 5</code>).</li>
+<li><strong>Operadores de comparación (relacionales):</strong> comparan dos valores y producen un resultado booleano (<code>True</code> o <code>False</code>):
+            <ul>
+<li><code>==</code> (igual a)</li>
+<li><code>!=</code> (distinto de)</li>
+<li><code>&lt;</code> (menor que), <code>&lt;=</code> (menor o igual que)</li>
+<li><code>&gt;</code> (mayor que), <code>&gt;=</code> (mayor o igual que)</li>
+</ul>
+</li>
+<li><strong>Operadores lógicos:</strong> permiten construir expresiones lógicas más complejas combinando valores booleanos:
+            <ul>
+<li><code><code class="funcion">and</code></code> – devuelve <code>True</code> si **ambas** condiciones son verdaderas.</li>
+<li><code><code class="funcion">or</code></code> – devuelve <code>True</code> si **al menos una** de las condiciones es verdadera.</li>
+<li><code><code class="funcion">not</code></code> – invierte el valor booleano (convierte <code>True</code> en <code>False</code> y viceversa).</li>
+</ul>
+</li>
+<li><strong>Operadores de pertenencia:</strong> verifican si un valor se encuentra dentro de una secuencia o colección:
+            <ul>
+<li><code><code class="funcion">in</code></code> – devuelve <code>True</code> si el elemento está presente.</li>
+<li><code><code class="funcion">not</code> <code class="funcion">in</code></code> – devuelve <code>True</code> si el elemento <em>no</em> está presente.</li>
+</ul>
+</li>
+<li><strong>Operadores de identidad:</strong> comparan si dos referencias apuntan al mismo objeto en memoria:
+            <ul>
+<li><code><code class="funcion">is</code></code> – devuelve <code>True</code> si ambos operandos son el mismo objeto.</li>
+<li><code><code class="funcion">is</code> <code class="funcion">not</code></code> – devuelve <code>True</code> si los operandos no son el mismo objeto.</li>
+</ul>
+<em>Nota:</em> Para la mayoría de comparaciones de igualdad de valor se usa <code>==</code>; <code><code class="funcion">is</code></code> se usa principalmente al comparar con <code><code class="variable">None</code></code> (por ejemplo, <code><code class="funcion">if</code> x <code class="funcion">is</code> <code class="variable">None</code>:</code>).
+        </li>
+</ul>
+<p>Veamos algunos de estos operadores en acción mediante ejemplos de expresiones simples:</p>
+<pre><code class="language-python">
+# Operadores aritméticos
+a = 10
+b = 3
+suma = a + b            # suma de a y b (10 + 3 = 13)
+resta = a - b           # resta (10 - 3 = 7)
+producto = a * b        # multiplicación (10 * 3 = 30)
+division = a / b        # división normal (10 / 3 = 3.3333...)
+division_entera = a // b  # división entera (10 // 3 = 3)
+residuo = a % b         # módulo, residuo de 10/3 ( = 1)
+potencia = a ** b       # potencia (10**3 = 1000)
+
+<code class="funcion">print</code>("Suma:", suma)
+<code class="funcion">print</code>("Resta:", resta)
+<code class="funcion">print</code>("Producto:", producto)
+<code class="funcion">print</code>("División:", division)
+<code class="funcion">print</code>("División entera:", division_entera)
+<code class="funcion">print</code>("Residuo:", residuo)
+<code class="funcion">print</code>("Potencia:", potencia)
+
+# Operadores de comparación
+x = 5
+y = 8
+<code class="funcion">print</code>("¿x es igual a y?", x == y)      # False, porque 5 no es igual a 8
+<code class="funcion">print</code>("¿x es menor que y?", x &lt; y)     # True, porque 5 &lt; 8
+<code class="funcion">print</code>("¿x es mayor o igual que 5?", x &gt;= 5)  # True, porque x = 5
+
+# Operadores lógicos
+sol = True
+lluvia = False
+<code class="funcion">print</code>("¿Hace sol y llueve a la vez?", sol <code class="funcion">and</code> lluvia)   # False (True <code class="funcion">and</code> False es False)
+<code class="funcion">print</code>("¿Hace sol o llueve?", sol <code class="funcion">or</code> lluvia)             # True (True <code class="funcion">or</code> False es True)
+<code class="funcion">print</code>("¿No está lloviendo?", <code class="funcion">not</code> lluvia)                # True (<code class="funcion">not</code> False es True)
+
+# Operadores de pertenencia
+frutas = ["manzana", "banana", "cereza"]
+<code class="funcion">print</code>("¿Hay 'banana' en la lista?", "banana" <code class="funcion">in</code> frutas)     # True
+<code class="funcion">print</code>("¿No hay 'uva' en la lista?", "uva" <code class="funcion">not</code> <code class="funcion">in</code> frutas)    # True
+
+# Operadores de identidad
+m = frutas
+n = ["manzana", "banana", "cereza"]
+<code class="funcion">print</code>("¿m es n?", m <code class="funcion">is</code> n)             # False, m y n son distintos objetos aunque su contenido sea igual
+<code class="funcion">print</code>("¿m == n?", m == n)             # True, el contenido (las frutas) es igual en ambas listas
+    </code></pre>
+<p>En el ejemplo anterior, se demuestran diferentes operadores. Observa que:</p>
+<ul>
+<li>La división <code>/</code> produce un resultado de tipo <code><code class="variable">float</code></code>, mientras que <code>//</code> produce la parte entera de la división (truncando decimales).</li>
+<li>Usamos operadores de comparación para comparar los valores de <code>x</code> y <code>y</code>, generando valores booleanos.</li>
+<li>Combinamos valores booleanos <code>sol</code> y <code>lluvia</code> con operadores lógicos <code><code class="funcion">and</code></code>, <code><code class="funcion">or</code></code>, <code><code class="funcion">not</code></code>.</li>
+<li>Utilizamos el operador <code><code class="funcion">in</code></code> para comprobar pertenencia en la lista <code>frutas</code>.</li>
+<li>Mostramos la diferencia entre <code><code class="funcion">is</code></code> e <code>==</code>: <code><code class="funcion">is</code></code> verifica si <code>m</code> y <code>n</code> son exactamente el mismo objeto en memoria (mismo espacio en memoria), mientras <code>==</code> verifica si sus contenidos son iguales. En este caso, <code>m <code class="funcion">is</code> n</code> es <code>False</code> porque son objetos distintos, aunque <code>m == n</code> resulta <code>True</code> porque contienen la misma lista de frutas.</li>
+</ul>
+<hr/>
+<!-- Estructuras de control de flujo -->
+<h2>Estructuras de control de flujo</h2>
+<p>Las estructuras de control de flujo permiten dirigir la ejecución del programa según ciertas condiciones o repetir bloques de código. Python soporta principalmente condicionales (<code><code class="funcion">if</code></code>, <code><code class="funcion">elif</code></code>, <code><code class="funcion">else</code></code>) y bucles (<code><code class="funcion">while</code></code> y <code><code class="funcion">for</code></code>). Un aspecto importante de Python es que usa la <strong>indentación</strong> (espacios o tabuladores al inicio de la línea) para definir los bloques de código en lugar de llaves <code>{ }</code> como en otros lenguajes. Asegúrate de mantener la indentación consistente (por lo general 4 espacios por nivel) para evitar errores de sintaxis.</p>
+<h3>Condicionales <code><code class="funcion">if</code>/<code class="funcion">elif</code>/<code class="funcion">else</code></code></h3>
+<p>La estructura condicional permite que un bloque de código se ejecute solo si se cumple una determinada condición. En Python, la sintaxis básica es:</p>
+<pre><code class="language-python">
+<code class="funcion">if</code> condicion:
+    # bloque si la condicion es verdadera
+<code class="funcion">elif</code> otra_condicion:
+    # bloque si la primera no era verdadera y esta segunda sí
+<code class="funcion">else</code>:
+    # bloque si ninguna de las condiciones anteriores fue verdadera
+    </code></pre>
+<p>El bloque <code><code class="funcion">elif</code></code> (abreviatura de "else if") y el bloque <code><code class="funcion">else</code></code> son opcionales. Podemos tener varios <code><code class="funcion">elif</code></code> para chequear múltiples condiciones en orden. Veamos un ejemplo práctico:</p>
+<pre><code class="language-python">
+# Ejemplo de uso de <code class="funcion">if</code>, <code class="funcion">elif</code>, <code class="funcion">else</code>
+temperatura = 30
+
+<code class="funcion">if</code> temperatura &gt; 35:
+    <code class="funcion">print</code>("Hace mucho calor")
+<code class="funcion">elif</code> temperatura &gt; 25:
+    <code class="funcion">print</code>("El clima es cálido")
+<code class="funcion">elif</code> temperatura &gt; 15:
+    <code class="funcion">print</code>("El clima es templado")
+<code class="funcion">else</code>:
+    <code class="funcion">print</code>("Hace frío")
+    </code></pre>
+<p>En este código, según el valor de <code>temperatura</code>, se ejecutará solo uno de los <code><code class="funcion">print</code></code>:
+        si <code>temperatura</code> es mayor a 35 se indica que hace mucho calor;
+        si no, pero es mayor a 25, indica clima cálido;
+        si no se cumplieron las anteriores pero es mayor a 15, indica clima templado;
+        de lo contrario (todas las condiciones anteriores son falsas), imprime "Hace frío". Solo uno de los bloques se ejecutará, el primero cuya condición sea <code>True</code>.</p>
+<p>A continuación se muestra un esquema de diagrama de flujo simplificado para una estructura condicional <code class="funcion">if</code>/<code class="funcion">else</code> (con una sola condición para mayor simplicidad):</p>
+<figure>
+<img alt="Diagrama de flujo de una estructura if-else simple" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flowchart-If_Then_Else.svg/960px-Flowchart-If_Then_Else.svg.png"/>
+<figcaption>Diagrama de flujo de una estructura condicional: si la condición (Q) es True (T), se ejecuta A; si es False (F), se ejecuta B. Luego el flujo continúa después del bloque condicional.</figcaption>
+</figure>
+<h3>Bucles <code><code class="funcion">while</code></code></h3>
+<p>El bucle <code><code class="funcion">while</code></code> repite un bloque de código mientras una condición dada sea <code>True</code>. La sintaxis es:</p>
+<pre><code class="language-python">
+<code class="funcion">while</code> condicion:
+    # bloque de código a repetir mientras la condicion sea True
+    </code></pre>
+<p>Dentro del bloque, es importante que eventualmente la condición se vuelva falsa, de lo contrario el bucle será infinito. Por ejemplo:</p>
+<pre><code class="language-python">
+# Ejemplo de bucle <code class="funcion">while</code>
+contador = 1
+<code class="funcion">while</code> contador &lt;= 5:
+    <code class="funcion">print</code>("Contando:", contador)
+    contador += 1   # incrementamos el contador en 1 en cada iteración
+<code class="funcion">print</code>("¡Despegue!")  # esto se ejecuta al terminar el bucle (cuando contador &gt; 5)
+    </code></pre>
+<p>Este código imprimirá números del 1 al 5 precedidos por la palabra "Contando:", y al finalizar el bucle (cuando la condición <code>contador &lt;= 5</code> ya no se cumple, es decir, cuando contador vale 6) imprimirá "¡Despegue!". Observa que incrementamos manualmente la variable <code>contador</code> dentro del bucle para evitar un bucle infinito.</p>
+<h3>Bucles <code><code class="funcion">for</code></code></h3>
+<p>El bucle <code><code class="funcion">for</code></code> en Python se utiliza para iterar sobre los elementos de una secuencia (lista, tupla, cadena, conjunto, diccionario u otros iterables). A diferencia de algunos lenguajes, en Python no se especifica un índice numérico en el <code><code class="funcion">for</code></code> a menos que se quiera; en su lugar, se recorre directamente cada elemento. La sintaxis es:</p>
+<pre><code class="language-python">
+<code class="funcion">for</code> variable <code class="funcion">in</code> secuencia:
+    # bloque de código que usa 'variable'
+    </code></pre>
+<p>En cada iteración, <code>variable</code> tomará el valor del siguiente elemento de la secuencia. Ejemplo:</p>
+<pre><code class="language-python">
+# Ejemplo de bucle <code class="funcion">for</code> recorriendo una lista
+animales = ["gato", "perro", "conejo"]
+<code class="funcion">for</code> animal <code class="funcion">in</code> animales:
+    <code class="funcion">print</code>("El animal es:", animal)
+
+# Ejemplo de bucle <code class="funcion">for</code> usando range() para iterar números
+<code class="funcion">for</code> numero <code class="funcion">in</code> range(1, 6):  # range(1, 6) produce 1, 2, 3, 4, 5
+    <code class="funcion">print</code>("Número:", numero)
+    </code></pre>
+<p>El primer bucle <code><code class="funcion">for</code></code> recorre la lista <code>animales</code> e imprime cada elemento. El segundo utiliza <code>range(1, 6)</code>, que genera la secuencia de enteros del 1 al 5 (el 6 no se incluye, ya que <code>range()</code> suele generar hasta el número inmediatamente anterior al segundo argumento). Así se pueden repetir acciones un número fijo de veces.</p>
+<p>Dentro de los bucles se pueden usar las sentencias <code>break</code> y <code>continue</code> para alterar el flujo:
+        <ul>
+<li><code>break</code> termina el bucle inmediatamente.</li>
+<li><code>continue</code> salta a la siguiente iteración del bucle, omitiendo el resto del bloque actual.</li>
+</ul>
+    Estos comandos son útiles para controlar bucles en situaciones específicas (por ejemplo, salir de un bucle si se ha encontrado lo que se buscaba, o saltar ciertas iteraciones).</p>
+<hr/>
+<!-- Funciones y programación modular -->
+<h2>Funciones y programación modular</h2>
+<p>Las <strong>funciones</strong> nos permiten agrupar un conjunto de instrucciones bajo un nombre, de modo que se puedan reutilizar fácilmente con diferentes entradas. Definir funciones ayuda a estructurar mejor el código y a evitar repetición. En Python, se define una función usando la palabra clave <code><code class="funcion">def</code></code>, seguida del nombre de la función, parámetros entre paréntesis y dos puntos. El bloque de la función va indentado debajo. Opcionalmente, una función puede <strong>retornar</strong> un valor usando la sentencia <code><code class="funcion">return</code></code>. Si no retorna nada explícitamente, por defecto retorna <code><code class="variable">None</code></code>.</p>
+<p>La sintaxis básica de una función es:</p>
+<pre><code class="language-python">
+<code class="funcion">def</code> nombre_de_la_funcion(param1, param2, ...):
+    # documentación opcional de la función (docstring)
+    # bloque de código
+    # opcionalmente, retornar un valor
+    <code class="funcion">return</code> resultado
+    </code></pre>
+<p>Veamos un ejemplo sencillo de una función y cómo utilizarla:</p>
+<pre><code class="language-python">
+# Definición de una función que suma dos números
+<code class="funcion">def</code> sumar(a, b):
+    """Devuelve la suma de a y b."""  # Este es un docstring (comentario de documentación)
+    resultado = a + b
+    <code class="funcion">return</code> resultado
+
+# Usar la función sumar
+x = 5
+y = 7
+suma = sumar(x, y)  # llamamos a la función con argumentos x e y
+<code class="funcion">print</code>(f"La suma de {x} y {y} es {suma}")
+    </code></pre>
+<p>En este ejemplo, definimos la función <code>sumar</code> que toma dos parámetros (<code>a</code> y <code>b</code>) y retorna su suma. Luego llamamos a la función con <code>x</code> e <code>y</code> y almacenamos el resultado en <code>suma</code> para finalmente imprimirlo. El texto entre triple comillas <code>"""..."""</code> dentro de la función es un <strong>docstring</strong>, sirve para documentar la función (no es obligatorio pero es una buena práctica).</p>
+<p>Las funciones pueden tener parámetros con valores predeterminados (por ejemplo, <code><code class="funcion">def</code> saludar(nombre, idioma="es"):</code>) y también aceptar un número variable de argumentos usando <code>*args</code> y <code>**kwargs</code>, pero esos son detalles más avanzados. Con lo básico visto arriba, ya puedes crear y usar funciones propias.</p>
+<p>La idea de <strong>programación modular</strong> consiste en dividir un programa grande en piezas o módulos más pequeños y manejables. Las funciones son una parte de esto, ya que cada función puede considerarse un bloque modular. Además, Python permite organizar el código en distintos archivos (llamados <em>módulos</em>) y paquetes. Por ejemplo, podríamos guardar varias funciones relacionadas en un archivo <code>utilidades.py</code> y luego importarlo en otro programa usando <code><code class="funcion">import</code> utilidades</code> o <code><code class="funcion">from</code> utilidades <code class="funcion">import</code> nombre_funcion</code>. Hablaremos más sobre imports en la siguiente sección al discutir las librerías estándar.</p>
+<hr/>
+<!-- Manejo de archivos y excepciones -->
+<h2>Manejo de archivos y excepciones</h2>
+<h3>Manejo de archivos</h3>
+<p>Python facilita la lectura y escritura de archivos en disco mediante la función incorporada <code>open()</code>. Para abrir un archivo, se utiliza <code>open("nombre_de_archivo", modo)</code>, donde <em>modo</em> es una cadena que indica el propósito:
+        <ul>
+<li><code>"r"</code> – leer (read), es el modo predeterminado. El archivo debe existir.</li>
+<li><code>"w"</code> – escribir (write), crea el archivo si no existe o lo sobrescribe si existe.</li>
+<li><code>"a"</code> – adjuntar (append), agrega el contenido al final del archivo si existe, o lo crea si no existe.</li>
+<li><code>"r+"</code> – leer y escribir.</li>
+</ul>
+    También hay modos para archivos binarios (agregando <code>"b"</code>, por ejemplo <code>"rb"</code> para lectura binaria) pero en este manual nos enfocaremos en texto.</p>
+<p>La forma recomendada de manejar archivos es usando una estructura <code>with</code>, que asegura el cierre automático del archivo al terminar el bloque (aunque también se puede cerrar manualmente con <code>archivo.<code class="propiedad">close</code>()</code>). Veamos un ejemplo de escritura y lectura de un archivo de texto:</p>
+<pre><code class="language-python">
+# Escribir texto en un archivo
+with open("ejemplo.txt", "w", encoding="utf-8") as archivo:
+    archivo.<code class="propiedad">write</code>("Línea 1: Hola mundo\n")
+    archivo.<code class="propiedad">write</code>("Línea 2: Esta es una prueba\n")
+    # El archivo se cerrará automáticamente al salir del bloque with
+
+# Leer el contenido del archivo
+with open("ejemplo.txt", "r", encoding="utf-8") as archivo:
+    contenido = archivo.<code class="propiedad">read</code>()  # leemos todo el contenido
+    <code class="funcion">print</code>("Contenido del archivo:")
+    <code class="funcion">print</code>(contenido)
+    </code></pre>
+<p>En este ejemplo, primero abrimos <code>ejemplo.txt</code> en modo escritura (<code>"w"</code>) y escribimos un par de líneas. Luego lo abrimos en modo lectura (<code>"r"</code>) y usamos <code>read()</code> para obtener todo el contenido en una sola cadena. La instrucción <code>with</code> se asegura de que el archivo se cierre apropiadamente después de cada bloque (incluso si ocurre una excepción dentro del bloque, el archivo se cerrará).</p>
+<p>También podemos leer archivos línea por línea usando <code><code class="funcion">for</code> linea <code class="funcion">in</code> archivo:</code> o <code>readline()</code>, y escribir usando <code><code class="funcion">print</code>(contenido, file=archivo)</code> para mayor comodidad. El manejo de archivos en Python es muy flexible para distintos casos de uso.</p>
+<h3>Manejo de excepciones</h3>
+<p>Las <strong>excepciones</strong> son errores en tiempo de ejecución que interrumpen el flujo normal de un programa. En Python, cuando ocurre un error (por ejemplo, dividir por cero, o intentar acceder a una variable no definida), se lanza una excepción. Si no se maneja, la ejecución del programa termina y se muestra un mensaje de error (traceback). Sin embargo, podemos <em>capturar</em> y manejar esas excepciones para evitar que el programa colapse y, en su lugar, tomar alguna acción o mostrar un mensaje amistoso al usuario.</p>
+<p>Python proporciona la estructura <code><code class="funcion">try</code>/<code class="funcion">except</code></code> (similar al try-catch de otros lenguajes) para el manejo de excepciones. Su sintaxis básica es:</p>
+<pre><code class="language-python">
+<code class="funcion">try</code>:
+    # código que puede producir una excepción
+<code class="funcion">except</code> TipoDeExcepcion1:
+    # qué hacer si ocurre TipoDeExcepcion1
+<code class="funcion">except</code> TipoDeExcepcion2 as e:
+    # qué hacer si ocurre TipoDeExcepcion2 (se captura como 'e')
+<code class="funcion">else</code>:
+    # (opcional) se ejecuta si no ocurrió ninguna excepción en el bloque <code class="funcion">try</code>
+finally:
+    # (opcional) se ejecuta siempre, haya o no excepción, normalmente para limpieza
+    </code></pre>
+<p>Los bloques <code><code class="funcion">else</code></code> y <code>finally</code> son opcionales. <code><code class="funcion">else</code></code> sirve para ejecutar código solo si no hubo excepciones, y <code>finally</code> para código que deba ejecutarse de todas formas (por ejemplo, cerrar un recurso). Veamos un ejemplo práctico:</p>
+<pre><code class="language-python">
+# Ejemplo de manejo de excepciones
+<code class="funcion">try</code>:
+    numerador = 10
+    denominador = 0
+    resultado = numerador / denominador   # Esta operación genera un ZeroDivisionError
+    <code class="funcion">print</code>("Resultado:", resultado)
+<code class="funcion">except</code> ZeroDivisionError as e:
+    <code class="funcion">print</code>("¡Error! No se puede dividir por cero.", e)
+finally:
+    <code class="funcion">print</code>("Fin del bloque <code class="funcion">try</code>-<code class="funcion">except</code>")
+    </code></pre>
+<p>En este ejemplo, dentro del bloque <code><code class="funcion">try</code></code> intentamos dividir 10 por 0, lo cual lanza una excepción de tipo <code>ZeroDivisionError</code>. Nuestro bloque <code><code class="funcion">except</code></code> captura ese error y ejecuta el código correspondiente, imprimiendo un mensaje de error. El bloque <code>finally</code> se ejecuta al final para imprimir "Fin del bloque try-except", ocurriera o no la excepción.</p>
+<p>Es posible capturar diferentes tipos de excepciones con múltiples except, o capturar cualquier excepción usando <code><code class="funcion">except</code> Exception as e:</code> (ya que <code>Exception</code> es la clase base de la mayoría de excepciones). Sin embargo, normalmente es buena práctica manejar solo las excepciones que se esperan o saben manejar, para no ocultar errores inesperados.</p>
+<p>Python tiene muchas excepciones integradas (como <code>TypeError</code>, <code>ValueError</code>, <code>FileNotFoundError</code>, etc.). También es posible <em>lanzar</em> manualmente excepciones usando la sentencia <code>raise</code>, pero eso va más allá de esta introducción. Por ahora, recuerda que <code><code class="funcion">try</code>/<code class="funcion">except</code></code> te permite manejar errores en tiempo de ejecución de forma controlada.</p>
+<hr/>
+<!-- Programación orientada a objetos (POO) -->
+<h2>Introducción a la programación orientada a objetos en Python</h2>
+<p>La <strong>Programación Orientada a Objetos (POO)</strong> es un paradigma que organiza el código en torno a <em>objetos</em>, que combinan estado (datos) y comportamiento (operaciones sobre esos datos). En Python, prácticamente todo es un objeto (enteros, cadenas, listas, etc. son objetos de clases definidas internamente). Aquí nos centraremos en cómo definir nuestras propias clases y crear objetos a partir de ellas.</p>
+<p>Una <strong>clase</strong> es como un plano o modelo que define atributos (datos) y métodos (funciones) que tendrán los objetos creados a partir de esa clase. Cada objeto es una <strong>instancia</strong> de una clase. Podemos pensar en la analogía de una clase "Coche" que define que los coches tienen atributos como color, modelo, año, y métodos como arrancar(), frenar(); y luego cada coche concreto (mi coche, tu coche) es un objeto con sus propios valores para esos atributos.</p>
+<p>En Python, definimos una clase usando la palabra clave <code>class</code> seguida del nombre de la clase y dos puntos. Dentro de la clase, definimos sus métodos como funciones (empezando por <code><code class="funcion">def</code></code>), incluido un método especial <code>__init__</code> que actúa como constructor (se ejecuta al crear nuevos objetos) para inicializar los atributos del objeto.</p>
+<pre><code class="language-python">
+class NombreDeLaClase:
+    <code class="funcion">def</code> __init__(self, parametros):
+        # inicializar atributos del objeto
+        self.atributo1 = valor_inicial1
+        self.atributo2 = valor_inicial2
+        # etc.
+
+    <code class="funcion">def</code> algun_metodo(self, otros_parametros):
+        # comportamiento o operación utilizando atributos
+        # (self se refiere al propio objeto)
+        ...
+        <code class="funcion">return</code> resultado_opcional
+    </code></pre>
+<p>Veamos un ejemplo concreto definiendo una clase <code>Persona</code> con algunos atributos y métodos:</p>
+<pre><code class="language-python">
+# Definición de la clase <span class="objeto">Persona</span>
+class <span class="objeto">Persona</span>:
+    def <span class="funcion">__init__</span>(self, <span class="variable">nombre</span>, <span class="variable">edad</span>):
+        self.<span class="propiedad">nombre</span> = <span class="variable">nombre</span>
+        self.<span class="propiedad">edad</span> = <span class="variable">edad</span>
+
+    def <span class="funcion">saludar</span>(self):
+        <span class="funcion">print</span>(f"Hola, me llamo {self.<span class="propiedad">nombre</span>} y tengo {self.<span class="propiedad">edad</span>} años.")
+
+# Crear objetos (instancias) de la clase Persona
+<span class="variable">persona1</span> = <span class="objeto">Persona</span>("Ana", 25)
+<span class="variable">persona2</span> = <span class="objeto">Persona</span>("Juan", 30)
+
+# Usar métodos de los objetos
+<span class="variable">persona1</span>.<span class="funcion">saludar</span>()
+<span class="variable">persona2</span>.<span class="funcion">saludar</span>()
+print("La edad de persona1 es:", <span class="variable">persona1</span>.<span class="propiedad">edad</span>)
+    </code></pre>
+<p>En este ejemplo, la clase <code class="objeto">Persona</code> define el método <code class="funcion">__init__</code> para establecer los atributos <code class="propiedad">nombre</code> y <code class="propiedad">edad</code> de cada objeto nuevo. También define el método <code class="funcion">saludar</code> que utiliza esos atributos. Creamos dos <em>instancias</em> de <code class="objeto">Persona</code> (Ana y Juan) y llamamos al método <code class="funcion">saludar</code> de cada una. Observa cómo utilizamos <code>self</code> dentro de los métodos de la clase: <code>self</code> hace referencia al propio objeto y nos permite acceder a sus atributos y otros métodos.</p>
+<p>Python soporta <strong>herencia</strong> entre clases, lo que significa que podemos crear una clase hija que hereda atributos y métodos de una clase padre, permitiendo reutilizar código y extender funcionalidades. La sintaxis es por ejemplo <code>class Estudiante(Persona):</code> para indicar que Estudiante hereda de Persona. Dentro, podemos definir atributos o métodos adicionales, o sobreescribir métodos de la clase padre. Sin embargo, los detalles de la herencia y otros conceptos avanzados (polimorfismo, encapsulamiento) quedan fuera de este resumen introductorio.</p>
+<p>Lo importante es entender que la POO nos permite modelar entidades del mundo real o conceptual en nuestro código de manera organizada. Podemos crear múltiples instancias (objetos) de las clases y cada una mantendrá su propio estado.</p>
+<hr/>
+<!-- Librerías estándar y uso básico -->
+<h2>Librerías estándar y su uso básico</h2>
+<p>Python viene con una amplia <strong>librería estándar</strong>, lo que significa que junto con el lenguaje se incluyen muchos módulos y paquetes listos para usar, que proveen funcionalidades para diversas tareas: matemáticas, manipulación de texto, acceso al sistema operativo, manejo de fechas, protocolos de Internet, compresión de archivos, etc. A menudo se dice que Python tiene "baterías incluidas" (<em>batteries included</em>) debido a la riqueza de su librería estándar.</p>
+<p>Para usar las funcionalidades de una librería, primero debemos <strong>importarla</strong> en nuestro código. Esto se hace con la palabra clave <code><code class="funcion">import</code></code>. Podemos importar el módulo completo, o partes específicas del módulo. Por ejemplo:</p>
+<pre><code class="language-python">
+<code class="funcion">import</code> math              # importa el módulo math completo
+<code class="funcion">from</code> math <code class="funcion">import</code> pi      # importa solo la variable pi del módulo math
+<code class="funcion">from</code> math <code class="funcion">import</code> sin, cos  # importa solo las funciones sin y cos
+
+<code class="funcion">import</code> os                # módulo para interacciones con el sistema operativo
+<code class="funcion">import</code> datetime          # módulo para manejar fechas y horas
+    </code></pre>
+<p>Veamos a continuación ejemplos básicos de uso de algunas librerías estándar comunes:</p>
+<pre><code class="language-python">
+<code class="funcion">import</code> math
+<code class="funcion">import</code> random
+<code class="funcion">import</code> datetime
+
+# Uso del módulo math
+angulo = math.<code class="propiedad">pi</code> / 4  # 45 grados en radianes (pi/4)
+<code class="funcion">print</code>("El coseno de 45 grados es:", math.<code class="propiedad">cos</code>(angulo))
+
+# Uso del módulo random
+aleatorio = random.randint(1, 100)  # número entero aleatorio entre 1 y 100
+<code class="funcion">print</code>("Número aleatorio generado:", aleatorio)
+
+# Uso del módulo datetime
+ahora = datetime.datetime.now()  # fecha y hora actuales
+<code class="funcion">print</code>("Fecha y hora actuales:", ahora.strftime("%Y-%m-%d %H:%M:%S"))
+    </code></pre>
+<p>En este código:
+        <ul>
+<li>Usamos <code>math.<code class="propiedad">pi</code></code> para obtener el valor de π y calcular el coseno de 45°. El módulo <code>math</code> incluye muchas funciones matemáticas (trigonométricas, logarítmicas, etc.) y constantes.</li>
+<li>Usamos <code>random.randint(a, b)</code> del módulo <code>random</code> para obtener un entero aleatorio entre <code>a</code> y <code>b</code>. El módulo <code>random</code> también permite generar números aleatorios de distintos tipos, mezclar listas, escoger elementos al azar, etc.</li>
+<li>Usamos <code>datetime.datetime.now()</code> para obtener la fecha y hora actuales. Luego, con <code>strftime</code>, formateamos ese objeto <code>datetime</code> a una cadena con el formato especificado (<code>"%Y-%m-%d %H:%M:%S"</code>, que produce algo como <code>"2025-03-10 12:05:22"</code>). El módulo <code>datetime</code> proporciona clases para trabajar con fechas, horas, intervalos de tiempo, etc.</li>
+</ul>
+    Estos son solo algunos ejemplos. La librería estándar es muy extensa; por ejemplo, tenemos módulos como <code>os</code> y <code>sys</code> para interactuar con el sistema operativo y el intérprete, <code>json</code> para trabajar con JSON, <code>re</code> para expresiones regulares, <code>urllib</code> para manejo de URLs, <code>csv</code> para leer/escribir archivos CSV, entre muchos otros. Vale la pena explorar la documentación oficial de Python para descubrir todas las herramientas disponibles en la librería estándar.</p>
+<p>Para finalizar este manual, ten en cuenta que también existe un vasto ecosistema de <strong>librerías y frameworks externos</strong> (no incluidas en la instalación básica de Python) que puedes instalar según tus necesidades (por ejemplo, <code>numpy</code> para computación numérica, <code>pandas</code> para análisis de datos, <code>flask</code> para desarrollo web, etc.). La comunidad de Python es muy activa y constantemente crea nuevas herramientas que amplían las capacidades del lenguaje.</p>
+<p><em>¡Felicidades!</em> Has llegado al final de este manual introductorio de Python. Ahora conoces los fundamentos: tipos de datos, operadores, estructuras de control, funciones, manejo de archivos, excepciones, conceptos básicos de objetos y el uso de librerías estándar. Con esta base, estás listo para profundizar más en Python y empezar a desarrollar tus propios programas. Recuerda que la práctica es clave para afianzar lo aprendido: experimenta escribiendo tus propios scripts, modifica los ejemplos proporcionados y consulta la documentación oficial de Python para seguir aprendiendo. ¡Buena suerte en tu camino de aprendizaje de la programación con Python!</p>
+</body>
+</html>
